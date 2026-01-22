@@ -3,422 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modernización de Gobierno de Datos de la Corte Suprema</title>
+    <title>Gobierno de Datos - Corte Suprema 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Roboto', sans-serif; background-color: #f0f9ff; color: #1e293b; }
-        .chart-container { 
-            position: relative; 
-            width: 100%; 
-            max-width: 600px; 
-            margin-left: auto; 
-            margin-right: auto; 
-            height: 350px; 
-            max-height: 400px; 
-        }
-        @media (min-width: 768px) { .chart-container { height: 400px; } }
-        
-        .flow-line-vertical {
-            width: 2px;
-            background-color: #cbd5e1;
-            height: 20px;
-            margin: 0 auto;
-        }
-        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        body { font-family: 'Roboto', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .chart-container { position: relative; width: 100%; height: 350px; }
+        .flow-line-vertical { width: 2px; background-color: #e2e8f0; height: 16px; margin: 0 auto; }
+        .card-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .phase-badge { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 9999px; text-transform: uppercase; }
     </style>
-    <!-- 
-    PALETTE: Vibrant Professional
-    Background: #f0f9ff (Sky 50)
-    Text: #1e293b (Slate 800)
-    Primary Blue: #3b82f6 (Blue 500)
-    Vibrant Cyan: #06b6d4 (Cyan 500)
-    Accent Amber: #f59e0b (Amber 500)
-    Dark Navy: #0f172a (Slate 900)
-    
-    PLAN NARRATIVE:
-    1. Introduction: The goal of single source truth.
-    2. Strategy: Shift from Manual to Automated.
-    3. Timeline: 3-Month Execution Plan.
-    4. Responsibilities: Who does what.
-    5. Impact: Expected qualitative improvements.
-    6. Detailed Flows: Phase breakdown.
-    7. Risks: Critical management points.
-    
-    NO SVG USED. NO MERMAID JS USED.
-    -->
 </head>
 <body class="bg-slate-50">
 
     <!-- Header Section -->
-    <header class="bg-slate-900 text-white py-12 px-4 shadow-lg text-center">
-        <div class="max-w-6xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 uppercase">
-                MODERNIZACIÓN DE GOBIERNO DE DATOS DE LA CORTE SUPREMA
+    <header class="bg-slate-900 text-white py-14 px-6 shadow-2xl text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <div class="absolute top-10 left-10 w-64 h-64 bg-cyan-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-64 h-64 bg-blue-500 rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 uppercase">
+                Modernización de Gobierno de Datos
             </h1>
-            <p class="text-xl md:text-2xl text-slate-300 font-light max-w-3xl mx-auto">
-                Estrategia Integral para la Calidad del Dato y Fuente Única de Verdad
-            </p>
-            <div class="mt-8 flex justify-center gap-4 flex-wrap">
-                <span class="bg-blue-600/30 border border-blue-500 px-4 py-2 rounded-full text-blue-300 font-semibold text-sm uppercase tracking-wide">Enero - Marzo 2026</span>
-                <span class="bg-cyan-600/30 border border-cyan-500 px-4 py-2 rounded-full text-cyan-300 font-semibold text-sm uppercase tracking-wide">Gestión por Fases</span>
+            <h2 class="text-2xl md:text-3xl font-light text-slate-300 mb-6">Corte Suprema de Justicia</h2>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-2 rounded-xl text-cyan-300 font-bold">
+                    📅 Enero - Marzo 2026
+                </div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-2 rounded-xl text-blue-300 font-bold">
+                    🎯 Calidad del Dato
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Grid -->
-    <main class="max-w-7xl mx-auto p-6 space-y-16">
+    <main class="max-w-7xl mx-auto p-6 space-y-16 py-12">
 
-        <!-- SECTION 1: Strategic Objective (Before/After) -->
-        <section>
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-slate-800 mb-3 text-center uppercase">Transformación del Modelo de Gestión</h2>
-                <p class="text-slate-600 max-w-2xl mx-auto">
-                    El objetivo central es eliminar la discrepancia de datos generada por registros manuales aislados y consolidar al SIJ Supremo como la única fuente fiable para la toma de decisiones.
+        <!-- Estrategia y Hito Crítico -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <h3 class="text-2xl font-bold text-slate-800 border-l-4 border-cyan-500 pl-4">Propuesta Estratégica</h3>
+                <p class="text-slate-600 leading-relaxed">
+                    Migración de un modelo de recolección manual (POI, GTI, Salas) hacia una <strong>fuente única de información</strong> basada en el SIJ Supremo, eliminando la duplicidad y asegurando la integridad referencial.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center gap-4">
+                        <div class="bg-red-100 p-3 rounded-lg text-red-600 text-2xl">🚫</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Eliminar</h4>
+                            <p class="text-xs text-slate-500">Duplicidad de cifras y registros manuales en Excel.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center gap-4">
+                        <div class="bg-emerald-100 p-3 rounded-lg text-emerald-600 text-2xl">✓</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Implementar</h4>
+                            <p class="text-xs text-slate-500">Consultas SQL únicas y validadores de base de datos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 text-white shadow-xl flex flex-col justify-center text-center relative overflow-hidden">
+                <div class="absolute -top-4 -right-4 text-white/10 text-9xl font-bold">!</div>
+                <h3 class="text-xs font-black tracking-widest uppercase mb-2 opacity-80">Dependencia Crítica</h3>
+                <div class="text-4xl font-black mb-4">ID 1.3.2</div>
+                <p class="text-sm leading-snug">
+                    La aprobación de los lineamientos por el <strong>Consejo Ejecutivo</strong> es el hito indispensable para iniciar cualquier modificación técnica en el SIJ.
                 </p>
             </div>
+        </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <!-- Current State Card -->
-                <div class="bg-white p-8 rounded-2xl border-l-8 border-slate-400 card-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-slate-100 rounded-full blur-2xl"></div>
-                    <h3 class="text-xl font-bold text-slate-500 mb-4 uppercase flex items-center gap-2">
-                        <span class="text-2xl">🚫</span> Situación Actual
-                    </h3>
-                    <ul class="space-y-3 text-slate-600">
-                        <li class="flex items-start gap-2">
-                            <span class="text-red-500 font-bold">×</span> Recolección manual en Excel
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-red-500 font-bold">×</span> Criterios dispares entre Salas
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-red-500 font-bold">×</span> Duplicidad de esfuerzos (GTI vs CIJ)
-                        </li>
-                    </ul>
+        <!-- Dashboard Analytics -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 card-shadow">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <span class="text-blue-500">📊</span> Cronograma de Esfuerzo
+                </h3>
+                <div class="chart-container">
+                    <canvas id="mainTimelineChart"></canvas>
                 </div>
-
-                <!-- Future State Card -->
-                <div class="bg-white p-8 rounded-2xl border-l-8 border-cyan-500 card-shadow relative overflow-hidden">
-                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-cyan-50 rounded-full blur-2xl"></div>
-                    <h3 class="text-xl font-bold text-cyan-700 mb-4 uppercase flex items-center gap-2">
-                        <span class="text-2xl">🚀</span> Modelo Objetivo 2026
-                    </h3>
-                    <ul class="space-y-3 text-slate-700">
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-500 font-bold">✓</span> Extracción SQL Automatizada
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-500 font-bold">✓</span> Tablas Maestras Estandarizadas
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-500 font-bold">✓</span> Integridad Referencial en SIJ
-                        </li>
-                    </ul>
+            </div>
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 card-shadow">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <span class="text-cyan-500">👥</span> Carga por Responsable
+                </h3>
+                <div class="chart-container">
+                    <canvas id="responsibilitiesChart"></canvas>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 2: Timeline Overview (Bar Chart) -->
-        <section class="bg-white rounded-3xl p-8 card-shadow">
-            <div class="flex flex-col md:flex-row gap-8">
-                <div class="md:w-1/3">
-                    <h2 class="text-3xl font-bold text-slate-800 mb-4">Cronograma de Ejecución</h2>
-                    <p class="text-slate-600 mb-4">
-                        El proyecto se ejecuta en tres fases consecutivas durante el primer trimestre de 2026. El gobierno de datos inicia con el marco normativo.
+        <!-- Detailed Roadmap Flows -->
+        <section class="space-y-12">
+            <h3 class="text-3xl font-black text-slate-800 text-center uppercase tracking-tight">Ruta Detallada de Implementación</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- FASE 1 -->
+                <div class="space-y-4">
+                    <div class="bg-blue-600 text-white p-4 rounded-2xl text-center shadow-lg">
+                        <span class="phase-badge bg-blue-400">Mes 1</span>
+                        <h4 class="font-black mt-1 uppercase">Estandarización</h4>
+                    </div>
+                    <div class="space-y-0">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <h5 class="text-xs font-black text-blue-600">1.1 Mesa Técnica</h5>
+                            <p class="text-[11px] text-slate-600">Instalación y recopilación de Excel manuales (Relatores).</p>
+                        </div>
+                        <div class="flow-line-vertical"></div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <h5 class="text-xs font-black text-blue-600">1.2 Diccionario de Datos</h5>
+                            <p class="text-[11px] text-slate-600">Construcción y mapeo de campos vs variables (GTI/Estadística).</p>
+                        </div>
+                        <div class="flow-line-vertical"></div>
+                        <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-500 shadow-md">
+                            <h5 class="text-xs font-black text-blue-800 uppercase italic">1.3 Marco Normativo</h5>
+                            <p class="text-[11px] text-blue-700">Directiva de Sala Plena y Aprobación Consejo Ejecutivo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FASE 2 -->
+                <div class="space-y-4">
+                    <div class="bg-cyan-600 text-white p-4 rounded-2xl text-center shadow-lg">
+                        <span class="phase-badge bg-cyan-400">Mes 2</span>
+                        <h4 class="font-black mt-1 uppercase">Reingeniería SIJ</h4>
+                    </div>
+                    <div class="space-y-0">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <h5 class="text-xs font-black text-cyan-600">2.1/2.2 Bloqueo y Validadores</h5>
+                            <p class="text-[11px] text-slate-600">Evitar cambio de estado "Resuelto" y campos obligatorios.</p>
+                        </div>
+                        <div class="flow-line-vertical"></div>
+                        <div class="bg-cyan-50 p-4 rounded-xl border border-cyan-200 shadow-sm">
+                            <h5 class="text-xs font-black text-cyan-700">2.3.2/2.3.3 Control Calidad</h5>
+                            <p class="text-[11px] text-cyan-800">Pruebas integrales de desarrollo y QA (GTI-QA).</p>
+                        </div>
+                        <div class="flow-line-vertical"></div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <h5 class="text-xs font-black text-cyan-600">2.3.4 Eliminación Manual</h5>
+                            <p class="text-[11px] text-slate-600">Cese de recolección estadística en Excel por salas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FASE 3 -->
+                <div class="space-y-4">
+                    <div class="bg-slate-800 text-white p-4 rounded-2xl text-center shadow-lg">
+                        <span class="phase-badge bg-slate-500">Mes 3</span>
+                        <h4 class="font-black mt-1 uppercase">Validación</h4>
+                    </div>
+                    <div class="space-y-0">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <h5 class="text-xs font-black text-slate-800">3.1 Capacitación</h5>
+                            <p class="text-[11px] text-slate-600">Instrucción sobre registro diario automatizado.</p>
+                        </div>
+                        <div class="flow-line-vertical"></div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <h5 class="text-xs font-black text-slate-800">3.2 Validación Relatorías</h5>
+                            <p class="text-[11px] text-slate-600">Mesas de contraste: SQL vs Despacho Real.</p>
+                        </div>
+                        <div class="flow-line-vertical"></div>
+                        <div class="bg-slate-100 p-4 rounded-xl border-2 border-slate-800 shadow-md">
+                            <h5 class="text-xs font-black text-slate-900 uppercase">3.3 Lanzamiento Dashboards</h5>
+                            <p class="text-[11px] text-slate-700">Configuración perfiles (MEF/Alta Dirección) por Estadística.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Qualitative Impact Radar -->
+        <section class="bg-slate-900 rounded-[3rem] p-10 text-white shadow-2xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-3xl font-black mb-6 uppercase text-cyan-400">Impacto Proyectado</h3>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
+                        La implementación de este gobierno de datos permitirá una mejora exponencial en la integridad y disponibilidad de la información para entes externos (MEF, JNJ) y la toma de decisiones interna.
                     </p>
                     <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-4 h-4 rounded bg-blue-500"></div>
-                            <span class="text-sm font-medium">Fase 1: Normativa</span>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-cyan-500/20 border border-cyan-500 flex items-center justify-center text-cyan-400">01</div>
+                            <span class="font-bold">Automatización de Reportes (SQL)</span>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-4 h-4 rounded bg-cyan-500"></div>
-                            <span class="text-sm font-medium">Fase 2: Técnica</span>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400">02</div>
+                            <span class="font-bold">Integridad Referencial del SIJ</span>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-4 h-4 rounded bg-amber-500"></div>
-                            <span class="text-sm font-medium">Fase 3: Validación</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="md:w-2/3 flex flex-col justify-center">
-                    <div class="chart-container">
-                        <canvas id="timelineChart"></canvas>
-                    </div>
-                    <p class="text-center text-xs text-slate-400 mt-2">Duración estimada en semanas por fase</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 3: Detailed Roadmap (Process Flows) -->
-        <section>
-            <h2 class="text-3xl font-bold text-slate-800 mb-8 text-center uppercase">Ruta Crítica de Implementación</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- PHASE 1 COLUMN -->
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                    <div class="border-b-4 border-blue-500 pb-4 mb-6 text-center">
-                        <h3 class="text-xl font-bold text-slate-800">Fase 1: Estandarización</h3>
-                        <span class="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded">Mes 1: Enero</span>
-                    </div>
-
-                    <div class="space-y-0">
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                            <h4 class="font-bold text-sm text-slate-700">1.1 Mesa Técnica</h4>
-                            <p class="text-xs text-slate-500 mt-1">Recopilación de archivos y definición de catálogo de sentidos de fallo.</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                            <h4 class="font-bold text-sm text-slate-700">1.2 Diccionario Datos</h4>
-                            <p class="text-xs text-slate-500 mt-1">Mapeo de variables en el SIJ Supremo.</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-500 relative">
-                            <div class="absolute -right-2 -top-2 bg-amber-500 text-white text-[10px] px-2 py-1 rounded-full font-bold">HITO</div>
-                            <h4 class="font-bold text-sm text-blue-800">1.3 Formalización</h4>
-                            <p class="text-xs text-blue-600 mt-1">Directiva de Sala Plena y prohibición de fuentes externas.</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-slate-500/20 border border-slate-500 flex items-center justify-center text-slate-400">03</div>
+                            <span class="font-bold">Transparencia Presupuestal (MEF)</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- PHASE 2 COLUMN -->
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                    <div class="border-b-4 border-cyan-500 pb-4 mb-6 text-center">
-                        <h3 class="text-xl font-bold text-slate-800">Fase 2: Reingeniería</h3>
-                        <span class="text-xs font-bold bg-cyan-100 text-cyan-700 px-2 py-1 rounded">Mes 2: Febrero</span>
-                    </div>
-
-                    <div class="space-y-0">
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                            <h4 class="font-bold text-sm text-slate-700">2.1 Bloqueo Técnico</h4>
-                            <p class="text-xs text-slate-500 mt-1">Impedir el retroceso de estados de causas resueltas.</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                            <h4 class="font-bold text-sm text-slate-700">2.2 Validadores</h4>
-                            <p class="text-xs text-slate-500 mt-1">Obligatoriedad de Delito/Fallo en el registro del sistema.</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-cyan-50 p-4 rounded-lg border-2 border-cyan-500">
-                            <h4 class="font-bold text-sm text-cyan-800">2.3 Automatización</h4>
-                            <p class="text-xs text-cyan-700 mt-1">Extracción vía SQL directa a dashboards.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PHASE 3 COLUMN -->
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                    <div class="border-b-4 border-amber-500 pb-4 mb-6 text-center">
-                        <h3 class="text-xl font-bold text-slate-800">Fase 3: Visualización</h3>
-                        <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-1 rounded">Mes 3: Marzo</span>
-                    </div>
-
-                    <div class="space-y-0">
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                            <h4 class="font-bold text-sm text-slate-700">3.1 Capacitación</h4>
-                            <p class="text-xs text-slate-500 mt-1">Programa intensivo para operadores jurisdiccionales.</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                            <h4 class="font-bold text-sm text-slate-700">3.2 Validación</h4>
-                            <p class="text-xs text-slate-500 mt-1">Contraste de cifras SQL vs realidad del despacho.</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-amber-50 p-4 rounded-lg border-2 border-amber-500">
-                            <h4 class="font-bold text-sm text-amber-800">3.3 Despliegue</h4>
-                            <p class="text-xs text-amber-700 mt-1">Tableros operativos para MEF y Presidencia.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 4: Data Visualization (Workload & Impact) -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-white p-6 rounded-2xl shadow-md">
-                <h3 class="text-xl font-bold text-slate-800 mb-2">Distribución de Responsabilidades</h3>
-                <p class="text-sm text-slate-500 mb-6">
-                    Análisis de carga de trabajo basada en el número de tareas clave por responsable.
-                </p>
                 <div class="chart-container">
-                    <canvas id="responsibilityChart"></canvas>
-                </div>
-            </div>
-
-            <div class="bg-slate-900 p-6 rounded-2xl shadow-md text-white">
-                <h3 class="text-xl font-bold text-cyan-400 mb-2">Impacto en el Gobierno de Datos</h3>
-                <p class="text-sm text-slate-400 mb-6">
-                    Mejora esperada en los 5 pilares de calidad del dato post-implementación.
-                </p>
-                <div class="chart-container">
-                    <canvas id="impactChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 5: Risk Management -->
-        <section>
-            <h2 class="text-2xl font-bold text-slate-800 mb-6 uppercase text-center">Gestión de Riesgos y Puntos Críticos</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                    <h4 class="font-bold text-amber-900 text-sm uppercase mb-1">⚠ Resistencia al Cambio</h4>
-                    <p class="text-sm text-amber-800">La eliminación de registros aislados requiere supervisión estricta de la Secretaría de Confianza.</p>
-                </div>
-                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
-                    <h4 class="font-bold text-red-900 text-sm uppercase mb-1">⚡ Dependencia Crítica</h4>
-                    <p class="text-sm text-red-800">La aprobación del Consejo Ejecutivo es vital para habilitar los cambios técnicos en el SIJ.</p>
-                </div>
-                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                    <h4 class="font-bold text-blue-900 text-sm uppercase mb-1">🛡 Garantía de Calidad</h4>
-                    <p class="text-sm text-blue-800">Los Relatores deben validar el cierre para asegurar coherencia entre el sistema y el papel.</p>
+                    <canvas id="impactRadarChart"></canvas>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-200 text-slate-600 py-8 text-center mt-12">
-        <p class="font-medium">Modernización de Gobierno de Datos Corte Suprema 2026</p>
-        <p class="text-sm">Propuesta estratégica de gestión de activos de información judicial</p>
+    <footer class="bg-slate-100 border-t border-slate-200 py-12 text-center">
+        <p class="text-slate-400 text-xs font-black uppercase tracking-widest mb-2">Modernización de Gobierno de Datos CSJ</p>
+        <p class="text-slate-600 font-bold">Plan de Acción Trimestral 2026</p>
     </footer>
 
-    <!-- Chart.js Implementation -->
     <script>
-        function splitLabel(str, maxLen = 16) {
-            if (str.length <= maxLen) return str;
+        function formatLabel(str) {
+            if (str.length <= 15) return str;
             const words = str.split(' ');
             const lines = [];
-            let currentLine = words[0];
-
-            for (let i = 1; i < words.length; i++) {
-                if (currentLine.length + 1 + words[i].length <= maxLen) {
-                    currentLine += ' ' + words[i];
-                } else {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                }
-            }
-            lines.push(currentLine);
+            let line = "";
+            words.forEach(w => {
+                if ((line + w).length > 15) { lines.push(line.trim()); line = ""; }
+                line += w + " ";
+            });
+            lines.push(line.trim());
             return lines;
         }
 
         Chart.defaults.font.family = "'Roboto', sans-serif";
-        Chart.defaults.color = '#475569';
-        
-        const tooltipConfig = {
-            callbacks: {
-                title: function(tooltipItems) {
-                    const item = tooltipItems[0];
-                    let label = item.chart.data.labels[item.dataIndex];
-                    if (Array.isArray(label)) return label.join(' ');
-                    return label;
-                }
-            }
-        };
+        Chart.defaults.color = '#64748b';
 
-        const ctxTimeline = document.getElementById('timelineChart').getContext('2d');
-        new Chart(ctxTimeline, {
+        new Chart(document.getElementById('mainTimelineChart'), {
             type: 'bar',
             data: {
-                labels: [
-                    splitLabel('Fase 1: Normativa'), 
-                    splitLabel('Fase 2: Técnica'), 
-                    splitLabel('Fase 3: Validación')
-                ],
+                labels: [formatLabel('Fase 1: Normativa'), formatLabel('Fase 2: Técnica/QA'), formatLabel('Fase 3: Validación')],
                 datasets: [{
-                    label: 'Semanas de Duración',
+                    label: 'Semanas',
                     data: [4, 4, 4],
-                    backgroundColor: ['#3b82f6', '#06b6d4', '#f59e0b'],
-                    borderRadius: 8,
-                    barPercentage: 0.6
+                    backgroundColor: ['#2563eb', '#0891b2', '#1e293b'],
+                    borderRadius: 12
                 }]
             },
             options: {
                 indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: tooltipConfig
-                },
-                scales: {
-                    x: { beginAtZero: true, max: 5 },
-                    y: { grid: { display: false } }
-                }
+                plugins: { legend: { display: false } },
+                scales: { x: { display: false }, y: { grid: { display: false } } }
             }
         });
 
-        const ctxResp = document.getElementById('responsibilityChart').getContext('2d');
-        new Chart(ctxResp, {
+        new Chart(document.getElementById('responsibilitiesChart'), {
             type: 'doughnut',
             data: {
-                labels: [
-                    splitLabel('GTI e Innovación'), 
-                    splitLabel('Relatores y Salas'), 
-                    splitLabel('Sub. Estadística'), 
-                    splitLabel('Consejo y Sala Plena'),
-                    splitLabel('Alta Dirección')
-                ],
+                labels: ['GTI/Innovación', 'Sub. Estadística', 'Relatores/Salas', 'CIJ/Equipo', 'Consejo Ejecutivo'],
                 datasets: [{
-                    data: [8, 5, 2, 2, 1],
-                    backgroundColor: ['#06b6d4', '#3b82f6', '#64748b', '#f59e0b', '#ef4444'],
-                    borderWidth: 0
+                    data: [35, 30, 20, 10, 5],
+                    backgroundColor: ['#0891b2', '#2563eb', '#64748b', '#94a3b8', '#1e293b'],
+                    borderWidth: 0,
+                    hoverOffset: 15
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'right' },
-                    tooltip: tooltipConfig
-                },
-                cutout: '70%'
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 20 } } },
+                cutout: '65%'
             }
         });
 
-        const ctxImpact = document.getElementById('impactChart').getContext('2d');
-        new Chart(ctxImpact, {
+        new Chart(document.getElementById('impactRadarChart'), {
             type: 'radar',
             data: {
-                labels: [
-                    splitLabel('Integridad Datos'),
-                    splitLabel('Automatización'),
-                    splitLabel('Velocidad de Reporte'),
-                    splitLabel('Estandarización'),
-                    splitLabel('Transparencia')
-                ],
+                labels: ['Automatización', 'Calidad Dato', 'Transparencia', 'Estandarización', 'Integridad SIJ'],
                 datasets: [{
-                    label: 'Actual',
-                    data: [2, 1, 2, 2, 3],
+                    label: 'Post-Implementación',
+                    data: [95, 90, 85, 90, 95],
                     fill: true,
-                    backgroundColor: 'rgba(148, 163, 184, 0.2)',
-                    borderColor: '#94a3b8',
-                    pointBackgroundColor: '#94a3b8',
-                }, {
-                    label: 'Objetivo 2026',
-                    data: [5, 5, 5, 5, 4],
-                    fill: true,
-                    backgroundColor: 'rgba(6, 182, 212, 0.2)',
-                    borderColor: '#06b6d4',
-                    pointBackgroundColor: '#06b6d4',
+                    backgroundColor: 'rgba(34, 211, 238, 0.2)',
+                    borderColor: '#22d3ee',
+                    pointBackgroundColor: '#22d3ee'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { labels: { color: '#e2e8f0' } },
-                    tooltip: tooltipConfig
-                },
+                plugins: { legend: { display: false } },
                 scales: {
                     r: {
                         angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
                         grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        pointLabels: { color: '#e2e8f0', font: { size: 11 } },
-                        ticks: { display: false, max: 5 }
+                        pointLabels: { color: '#94a3b8', font: { size: 10, weight: 'bold' } },
+                        ticks: { display: false }
                     }
                 }
             }
@@ -426,9 +299,3 @@
     </script>
 </body>
 </html>
-<!-- 
-NO SVG WAS USED IN THIS OUTPUT.
-NO MERMAID JS WAS USED IN THIS OUTPUT.
-ALL ICONS ARE UNICODE.
-ALL DIAGRAMS ARE HTML/CSS.
--->
