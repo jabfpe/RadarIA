@@ -1,301 +1,463 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gobierno de Datos - Corte Suprema 2026</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Roboto', sans-serif; background-color: #f8fafc; color: #0f172a; }
-        .chart-container { position: relative; width: 100%; height: 350px; }
-        .flow-line-vertical { width: 2px; background-color: #e2e8f0; height: 16px; margin: 0 auto; }
-        .card-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-        .phase-badge { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 9999px; text-transform: uppercase; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparación IAs 2026 · JABF</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
+:root{
+  --bg:#0a0a0f;--surface:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.08);
+  --text:#e8e8f0;--muted:rgba(232,232,240,0.55);--dim:#44446a;--r:14px;
+  --claude:#e8865a;--gpt:#74c69d;--gemini:#6ea8fe;--meta:#d6a4f7;
+  --deepseek:#f7c948;--qwen:#f06a8a;--ernie:#4ecdc4;--glm:#22d3ee;
+  --kimi:#ff6b9d;--grok:#a78bfa;--perplexity:#20c997;--notebooklm:#fbbc04;
+  --mistral:#f59e0b;--minimax:#38bdf8;--seed:#a3e635;--copilot:#0078d4;--nova:#ff9900;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100svh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 50% 35% at 10% 8%,rgba(232,134,90,.05) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 35% at 90% 90%,rgba(116,198,157,.05) 0%,transparent 55%),
+    radial-gradient(ellipse 35% 25% at 50% 50%,rgba(56,189,248,.03) 0%,transparent 50%)}
+.wrap{position:relative;z-index:1;max-width:1220px;margin:0 auto;padding:24px 16px 52px}
+
+header{text-align:center;margin-bottom:28px}
+.h-title{font-size:clamp(1.7rem,5vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.08}
+.h-title em{color:var(--claude);font-style:normal}
+.h-sub{margin-top:8px;font-family:'Space Mono',monospace;font-size:clamp(.55rem,1.3vw,.68rem);color:var(--dim);letter-spacing:.14em;text-transform:uppercase}
+.h-sub b{color:var(--claude)}
+.badges{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:12px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-family:'Space Mono',monospace;font-size:.54rem;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
+.badge-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.pulse{animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.65)}}
+
+.main-grid{display:grid;grid-template-columns:1fr 316px;gap:14px;align-items:start}
+@media(max-width:920px){.main-grid{grid-template-columns:1fr}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.radar-card{display:flex;flex-direction:column;align-items:center;padding:18px}
+#radar{display:block;width:100%;max-width:560px;height:auto;cursor:pointer}
+
+.side{display:flex;flex-direction:column;gap:10px}
+.panel-label{font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);margin-bottom:9px}
+.group-label{font-family:'Space Mono',monospace;font-size:.54rem;letter-spacing:.09em;text-transform:uppercase;margin:7px 0 3px 2px}
+.legend-grid{display:flex;flex-direction:column;gap:1px}
+@media(max-width:920px){.legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}.group-label{grid-column:1/-1}}
+@media(max-width:480px){.legend-grid{grid-template-columns:1fr}}
+.leg{display:flex;align-items:center;gap:8px;padding:6px 9px;border-radius:8px;cursor:pointer;transition:background .15s,transform .1s;user-select:none}
+.leg:hover{background:rgba(255,255,255,.06);transform:translateX(2px)}
+.leg.active{background:rgba(255,255,255,.09)}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.leg-name{font-weight:700;font-size:.8rem;white-space:nowrap}
+.leg-co{margin-left:auto;font-family:'Space Mono',monospace;font-size:.53rem;color:var(--dim);white-space:nowrap;padding-left:4px}
+.leg-new{font-family:'Space Mono',monospace;font-size:.46rem;padding:1px 4px;border-radius:4px;margin-left:3px;font-weight:700;text-transform:uppercase}
+
+#vBadge{font-size:.79rem;line-height:1.6}
+.score-row{margin-bottom:9px}
+.score-meta{display:flex;justify-content:space-between;margin-bottom:3px;font-size:.69rem}
+.score-val{font-family:'Space Mono',monospace;font-weight:700}
+.bar-bg{height:4px;background:rgba(255,255,255,.06);border-radius:3px}
+.bar-fill{height:100%;border-radius:3px;width:0%;transition:width .75s cubic-bezier(.23,1,.32,1);position:relative}
+.bar-fill::after{content:'';position:absolute;right:-4px;top:-3px;width:10px;height:10px;border-radius:50%;background:inherit;filter:brightness(1.7);box-shadow:0 0 5px currentColor}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.cat{font-size:.68rem;color:var(--muted);display:flex;align-items:center;gap:5px}
+.cat::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--dim);flex-shrink:0}
+
+.sources-section{margin-top:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px}
+.src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px}
+.src-item{display:flex;flex-direction:column;gap:2px}
+.src-lbl{font-family:'Space Mono',monospace;font-size:.53rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.src-name{font-weight:700;font-size:.74rem;color:var(--muted)}
+.src-link{font-family:'Space Mono',monospace;font-size:.57rem;color:var(--claude);text-decoration:none;opacity:.8;word-break:break-all}
+.src-link:hover{opacity:1;text-decoration:underline}
+.disc{border-top:1px solid rgba(255,255,255,.05);padding-top:11px;font-family:'Space Mono',monospace;font-size:.59rem;color:var(--dim);line-height:1.75}
+.disc strong{color:rgba(232,232,240,.65)}
+
+.foot{margin-top:22px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
+.author-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:6px 14px 6px 7px}
+.initials{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--claude),#c84b9e);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.62rem;color:#fff;flex-shrink:0}
+.auth-info{display:flex;flex-direction:column}
+.auth-lbl{font-family:'Space Mono',monospace;font-size:.52rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em}
+.auth-name{font-weight:700;font-size:.82rem;color:var(--muted)}
+.vdiv{width:1px;height:20px;background:rgba(255,255,255,.08)}
+.foot-date{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim)}
+.touch-hint{font-family:'Space Mono',monospace;font-size:.55rem;color:var(--dim);text-align:center;margin-top:7px;letter-spacing:.07em}
+@media(max-width:480px){.wrap{padding:14px 8px 32px}.card,.radar-card{padding:10px}.sources-section{padding:12px}.src-grid{grid-template-columns:1fr 1fr}}
+</style>
 </head>
-<body class="bg-slate-50">
+<body>
+<div class="wrap">
 
-    <!-- Header Section -->
-    <header class="bg-slate-900 text-white py-14 px-6 shadow-2xl text-center relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-            <div class="absolute top-10 left-10 w-64 h-64 bg-cyan-500 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 right-10 w-64 h-64 bg-blue-500 rounded-full blur-3xl"></div>
+<header>
+  <h1 class="h-title">Asistentes de IA<br><em>Comparados</em></h1>
+  <p class="h-sub">Radar multidimensional · <b>10 marzo 2026</b> · 17 modelos</p>
+  <div class="badges">
+    <span class="badge" style="border:1px solid rgba(255,153,0,.5);background:rgba(255,153,0,.1);color:#ffb84d">
+      <span class="badge-dot pulse" style="background:#ffb84d"></span>NUEVO: Amazon Nova 2 · τ²-Bench 93% · $1.25/M
+    </span>
+    <span class="badge" style="border:1px solid rgba(0,120,212,.5);background:rgba(0,120,212,.1);color:#60b0ff">
+      <span class="badge-dot" style="background:#60b0ff"></span>Copilot Wave 3 · Claude+GPT · Agent 365
+    </span>
+    <span class="badge" style="border:1px solid rgba(139,92,246,.4);background:rgba(139,92,246,.08);color:#c4b5fd">
+      <span class="badge-dot" style="background:#c4b5fd"></span>LeCun AMI Labs $1.03B · world models
+    </span>
+    <span class="badge" style="border:1px solid rgba(116,198,157,.4);background:rgba(116,198,157,.08);color:var(--gpt)">
+      <span class="badge-dot" style="background:var(--gpt)"></span>GPT-5.4 + Excel + Codex Security
+    </span>
+    <span class="badge" style="border:1px solid rgba(232,134,90,.4);background:rgba(232,134,90,.08);color:var(--claude)">
+      <span class="badge-dot" style="background:var(--claude)"></span>Claude #1 App Store · impugna ban
+    </span>
+  </div>
+</header>
+
+<div class="main-grid">
+  <div class="card radar-card">
+    <canvas id="radar"></canvas>
+    <p class="touch-hint">↑ toca un modelo para destacarlo</p>
+  </div>
+
+  <div class="side">
+    <div class="card">
+      <div class="panel-label">Modelos (17)</div>
+      <div class="legend-grid">
+
+        <div class="group-label" style="color:var(--claude)">🌎 Occidentales (10)</div>
+        <div class="leg active" data-i="0"  onclick="sel(0)"><div class="leg-dot" style="background:var(--claude)"></div><span class="leg-name">Claude</span><span class="leg-co">Anthropic</span></div>
+        <div class="leg"        data-i="1"  onclick="sel(1)"><div class="leg-dot" style="background:var(--gpt)"></div><span class="leg-name">ChatGPT</span><span class="leg-co">OpenAI</span></div>
+        <div class="leg"        data-i="2"  onclick="sel(2)"><div class="leg-dot" style="background:var(--gemini)"></div><span class="leg-name">Gemini</span><span class="leg-co">Google</span></div>
+        <div class="leg"        data-i="3"  onclick="sel(3)"><div class="leg-dot" style="background:var(--meta)"></div><span class="leg-name">Llama</span><span class="leg-co">Meta</span></div>
+        <div class="leg"        data-i="9"  onclick="sel(9)"><div class="leg-dot" style="background:var(--grok)"></div><span class="leg-name">Grok</span><span class="leg-co">xAI</span></div>
+        <div class="leg"        data-i="10" onclick="sel(10)"><div class="leg-dot" style="background:var(--perplexity)"></div><span class="leg-name">Perplexity</span><span class="leg-co">Perplexity AI</span></div>
+        <div class="leg"        data-i="11" onclick="sel(11)"><div class="leg-dot" style="background:var(--notebooklm)"></div><span class="leg-name">NotebookLM</span><span class="leg-co">Google Labs</span></div>
+        <div class="leg"        data-i="12" onclick="sel(12)"><div class="leg-dot" style="background:var(--mistral)"></div><span class="leg-name">Mistral</span><span class="leg-co">Mistral AI 🇫🇷</span></div>
+        <div class="leg"        data-i="15" onclick="sel(15)">
+          <div class="leg-dot" style="background:var(--copilot)"></div>
+          <span class="leg-name">Copilot</span>
+          <span class="leg-co">Microsoft</span>
         </div>
-        <div class="max-w-6xl mx-auto relative z-10">
-            <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 uppercase">
-                Modernización de Gobierno de Datos
-            </h1>
-            <h2 class="text-2xl md:text-3xl font-light text-slate-300 mb-6">Corte Suprema de Justicia</h2>
-            <div class="flex justify-center gap-4 flex-wrap">
-                <div class="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-2 rounded-xl text-cyan-300 font-bold">
-                    📅 Enero - Marzo 2026
-                </div>
-                <div class="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-2 rounded-xl text-blue-300 font-bold">
-                    🎯 Calidad del Dato
-                </div>
-            </div>
+        <div class="leg"        data-i="16" onclick="sel(16)">
+          <div class="leg-dot" style="background:var(--nova)"></div>
+          <span class="leg-name">Nova 2</span>
+          <span class="leg-new" style="background:rgba(255,153,0,.2);color:#ffb84d">NEW</span>
+          <span class="leg-co">Amazon AWS</span>
         </div>
-    </header>
 
-    <main class="max-w-7xl mx-auto p-6 space-y-16 py-12">
+        <div class="group-label" style="color:var(--deepseek)">🇨🇳 Chinos (7)</div>
+        <div class="leg"        data-i="4"  onclick="sel(4)"><div class="leg-dot" style="background:var(--deepseek)"></div><span class="leg-name">DeepSeek</span><span class="leg-co">DeepSeek AI</span></div>
+        <div class="leg"        data-i="5"  onclick="sel(5)"><div class="leg-dot" style="background:var(--qwen)"></div><span class="leg-name">Qwen</span><span class="leg-co">Alibaba</span></div>
+        <div class="leg"        data-i="6"  onclick="sel(6)"><div class="leg-dot" style="background:var(--ernie)"></div><span class="leg-name">Ernie</span><span class="leg-co">Baidu</span></div>
+        <div class="leg"        data-i="7"  onclick="sel(7)"><div class="leg-dot" style="background:var(--glm)"></div><span class="leg-name">GLM-5</span><span class="leg-co">Zhipu / Z.ai</span></div>
+        <div class="leg"        data-i="8"  onclick="sel(8)"><div class="leg-dot" style="background:var(--kimi)"></div><span class="leg-name">Kimi K2.5</span><span class="leg-co">Moonshot AI</span></div>
+        <div class="leg"        data-i="13" onclick="sel(13)">
+          <div class="leg-dot" style="background:var(--minimax)"></div>
+          <span class="leg-name">MiniMax</span>
+          <span class="leg-co">MiniMax AI</span>
+        </div>
+        <div class="leg"        data-i="14" onclick="sel(14)">
+          <div class="leg-dot" style="background:var(--seed)"></div>
+          <span class="leg-name">Seed 2.0</span>
+          <span class="leg-co">ByteDance</span>
+        </div>
+      </div>
+    </div>
 
-        <!-- Estrategia y Hito Crítico -->
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 space-y-6">
-                <h3 class="text-2xl font-bold text-slate-800 border-l-4 border-cyan-500 pl-4">Propuesta Estratégica</h3>
-                <p class="text-slate-600 leading-relaxed">
-                    Migración de un modelo de recolección manual (POI, GTI, Salas) hacia una <strong>fuente única de información</strong> basada en el SIJ Supremo, eliminando la duplicidad y asegurando la integridad referencial.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center gap-4">
-                        <div class="bg-red-100 p-3 rounded-lg text-red-600 text-2xl">🚫</div>
-                        <div>
-                            <h4 class="font-bold text-sm">Eliminar</h4>
-                            <p class="text-xs text-slate-500">Duplicidad de cifras y registros manuales en Excel.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center gap-4">
-                        <div class="bg-emerald-100 p-3 rounded-lg text-emerald-600 text-2xl">✓</div>
-                        <div>
-                            <h4 class="font-bold text-sm">Implementar</h4>
-                            <p class="text-xs text-slate-500">Consultas SQL únicas y validadores de base de datos.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 text-white shadow-xl flex flex-col justify-center text-center relative overflow-hidden">
-                <div class="absolute -top-4 -right-4 text-white/10 text-9xl font-bold">!</div>
-                <h3 class="text-xs font-black tracking-widest uppercase mb-2 opacity-80">Dependencia Crítica</h3>
-                <div class="text-4xl font-black mb-4">ID 1.3.2</div>
-                <p class="text-sm leading-snug">
-                    La aprobación de los lineamientos por el <strong>Consejo Ejecutivo</strong> es el hito indispensable para iniciar cualquier modificación técnica en el SIJ.
-                </p>
-            </div>
-        </section>
+    <div class="card">
+      <div class="panel-label">📅 Versión de referencia</div>
+      <div id="vBadge"></div>
+    </div>
 
-        <!-- Dashboard Analytics -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 card-shadow">
-                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
-                    <span class="text-blue-500">📊</span> Cronograma de Esfuerzo
-                </h3>
-                <div class="chart-container">
-                    <canvas id="mainTimelineChart"></canvas>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 card-shadow">
-                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
-                    <span class="text-cyan-500">👥</span> Carga por Responsable
-                </h3>
-                <div class="chart-container">
-                    <canvas id="responsibilitiesChart"></canvas>
-                </div>
-            </div>
-        </section>
+    <div class="card">
+      <div class="panel-label">Detalle · <span id="iaName" style="color:var(--claude)">Claude</span></div>
+      <div id="scoreRows"></div>
+    </div>
 
-        <!-- Detailed Roadmap Flows -->
-        <section class="space-y-12">
-            <h3 class="text-3xl font-black text-slate-800 text-center uppercase tracking-tight">Ruta Detallada de Implementación</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- FASE 1 -->
-                <div class="space-y-4">
-                    <div class="bg-blue-600 text-white p-4 rounded-2xl text-center shadow-lg">
-                        <span class="phase-badge bg-blue-400">Mes 1</span>
-                        <h4 class="font-black mt-1 uppercase">Estandarización</h4>
-                    </div>
-                    <div class="space-y-0">
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                            <h5 class="text-xs font-black text-blue-600">1.1 Mesa Técnica</h5>
-                            <p class="text-[11px] text-slate-600">Instalación y recopilación de Excel manuales (Relatores).</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                            <h5 class="text-xs font-black text-blue-600">1.2 Diccionario de Datos</h5>
-                            <p class="text-[11px] text-slate-600">Construcción y mapeo de campos vs variables (GTI/Estadística).</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-500 shadow-md">
-                            <h5 class="text-xs font-black text-blue-800 uppercase italic">1.3 Marco Normativo</h5>
-                            <p class="text-[11px] text-blue-700">Directiva de Sala Plena y Aprobación Consejo Ejecutivo.</p>
-                        </div>
-                    </div>
-                </div>
+    <div class="card">
+      <div class="panel-label">Categorías evaluadas</div>
+      <div class="cat-grid">
+        <div class="cat">Razonamiento</div><div class="cat">Creatividad</div>
+        <div class="cat">Ética</div><div class="cat">Código</div>
+        <div class="cat">Ctx largo</div><div class="cat">Multimodal</div>
+        <div class="cat">Velocidad</div><div class="cat">Acceso libre</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-                <!-- FASE 2 -->
-                <div class="space-y-4">
-                    <div class="bg-cyan-600 text-white p-4 rounded-2xl text-center shadow-lg">
-                        <span class="phase-badge bg-cyan-400">Mes 2</span>
-                        <h4 class="font-black mt-1 uppercase">Reingeniería SIJ</h4>
-                    </div>
-                    <div class="space-y-0">
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                            <h5 class="text-xs font-black text-cyan-600">2.1/2.2 Bloqueo y Validadores</h5>
-                            <p class="text-[11px] text-slate-600">Evitar cambio de estado "Resuelto" y campos obligatorios.</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-cyan-50 p-4 rounded-xl border border-cyan-200 shadow-sm">
-                            <h5 class="text-xs font-black text-cyan-700">2.3.2/2.3.3 Control Calidad</h5>
-                            <p class="text-[11px] text-cyan-800">Pruebas integrales de desarrollo y QA (GTI-QA).</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                            <h5 class="text-xs font-black text-cyan-600">2.3.4 Eliminación Manual</h5>
-                            <p class="text-[11px] text-slate-600">Cese de recolección estadística en Excel por salas.</p>
-                        </div>
-                    </div>
-                </div>
+<!-- SOURCES -->
+<div class="sources-section">
+  <div class="panel-label">Fuentes · 17 modelos · 10 marzo 2026</div>
+  <div class="src-grid">
+    <div class="src-item"><span class="src-lbl">Benchmarks</span><span class="src-name">LMSYS Chatbot Arena</span><a class="src-link" href="https://chat.lmsys.org" target="_blank">chat.lmsys.org</a></div>
+    <div class="src-item"><span class="src-lbl">LLM updates</span><span class="src-name">LLM Stats · Mar 2026</span><a class="src-link" href="https://llm-stats.com/llm-updates" target="_blank">llm-stats.com/llm-updates</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--nova)">Amazon Nova 2 🆕 · τ²-Bench</span><span class="src-name">Amazon Science / AWS Blog</span><a class="src-link" href="https://www.amazon.science/publications/amazon-nova-2-multimodal-reasoning-and-generation-models" target="_blank">amazon.science/nova-2</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:#60b0ff">Copilot Wave 3 · Agent 365</span><span class="src-name">Microsoft Blog · 9 Mar 2026</span><a class="src-link" href="https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/" target="_blank">blogs.microsoft.com/wave3</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:#c4b5fd">AMI Labs $1.03B · LeCun</span><span class="src-name">TechCrunch · 10 Mar 2026</span><a class="src-link" href="https://techcrunch.com/2026/03/09/yann-lecuns-ami-labs-raises-1-03-billion-to-build-world-models/" target="_blank">techcrunch.com/ami-labs</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--gpt)">GPT-5.4 + Excel + Codex Sec</span><span class="src-name">OpenAI / VentureBeat · Mar 2026</span><a class="src-link" href="https://venturebeat.com/technology/openai-launches-gpt-5-4-with-native-computer-use-mode-financial-plugins-for" target="_blank">venturebeat.com/gpt-5-4</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--claude)">Claude ban federal · App Store</span><span class="src-name">NBC / CNBC · Feb–Mar 2026</span><a class="src-link" href="https://www.nbcnews.com/tech/tech-news/trump-bans-anthropic-government-use-rcna261055" target="_blank">nbcnews.com/anthropic-ban</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--gemini)">Gemini 3.1 Pro + Flash-Lite</span><span class="src-name">Google DeepMind · Mar 2026</span><a class="src-link" href="https://deepmind.google/models/model-cards/gemini-3-1-pro/" target="_blank">deepmind.google/gemini-3-1</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--deepseek)">DeepSeek V4 · MIT</span><span class="src-name">Reuters / AI2Work · Mar 2026</span><a class="src-link" href="https://ai2.work/blog/deepseek-v4-china-s-trillion-parameter-multimodal-ai-rival-in-2026" target="_blank">ai2.work/deepseek-v4</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--mistral)">Mistral Large 3 · Apache 2.0</span><span class="src-name">Mistral AI · Dic 2025</span><a class="src-link" href="https://mistral.ai/news/mistral-3" target="_blank">mistral.ai/news/mistral-3</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--minimax)">MiniMax M2.5 · MIT</span><span class="src-name">OpenHands · 12 Feb 2026</span><a class="src-link" href="https://openhands.dev/blog/minimax-m2-5-open-weights-models-catch-up-to-claude" target="_blank">openhands.dev/minimax-m2-5</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--seed)">ByteDance Seed 2.0</span><span class="src-name">ByteDance Seed · 14 Feb 2026</span><a class="src-link" href="https://seed.bytedance.com/en/blog/seed2-0" target="_blank">seed.bytedance.com/seed2-0</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--kimi)">Kimi K2.5 MIT</span><span class="src-name">Moonshot AI · 27 Ene 2026</span><a class="src-link" href="https://moonshotai.github.io/Kimi-K2/" target="_blank">moonshotai.github.io/Kimi-K2</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--grok)">Grok 4.20 · redes DoD</span><span class="src-name">xAI · Feb–Mar 2026</span><a class="src-link" href="https://x.ai/news" target="_blank">x.ai/news</a></div>
+    <div class="src-item"><span class="src-lbl">Comparativa general</span><span class="src-name">Artificial Analysis · 2026</span><a class="src-link" href="https://artificialanalysis.ai" target="_blank">artificialanalysis.ai</a></div>
+    <div class="src-item"><span class="src-lbl">Open-source ranking</span><span class="src-name">Pluralsight / Design For Online</span><a class="src-link" href="https://designforonline.com/the-best-ai-models-so-far-in-2026/" target="_blank">designforonline.com/best-2026</a></div>
+  </div>
 
-                <!-- FASE 3 -->
-                <div class="space-y-4">
-                    <div class="bg-slate-800 text-white p-4 rounded-2xl text-center shadow-lg">
-                        <span class="phase-badge bg-slate-500">Mes 3</span>
-                        <h4 class="font-black mt-1 uppercase">Validación</h4>
-                    </div>
-                    <div class="space-y-0">
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                            <h5 class="text-xs font-black text-slate-800">3.1 Capacitación</h5>
-                            <p class="text-[11px] text-slate-600">Instrucción sobre registro diario automatizado.</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                            <h5 class="text-xs font-black text-slate-800">3.2 Validación Relatorías</h5>
-                            <p class="text-[11px] text-slate-600">Mesas de contraste: SQL vs Despacho Real.</p>
-                        </div>
-                        <div class="flow-line-vertical"></div>
-                        <div class="bg-slate-100 p-4 rounded-xl border-2 border-slate-800 shadow-md">
-                            <h5 class="text-xs font-black text-slate-900 uppercase">3.3 Lanzamiento Dashboards</h5>
-                            <p class="text-[11px] text-slate-700">Configuración perfiles (MEF/Alta Dirección) por Estadística.</p>
-                        </div>
-                    </div>
-                </div>
+  <div class="disc">
+    <strong>📅 Cobertura — 10 marzo 2026 · 17 modelos:</strong><br><br>
+    <span style="color:var(--claude)">▶ Claude</span> — <strong>Sonnet 4.6 / Opus 4.6 · #1 App Store EE.UU.</strong> · Ban federal 27 Feb (rehusó uso en armas autónomas y vigilancia masiva) · Impugna en cortes · +60% usuarios · Distillation denuncia: DeepSeek 16M exchanges, Kimi 3.4M · Claude 5 próximo · Cowork integration con Microsoft Copilot<br>
+    <span style="color:var(--gpt)">▶ ChatGPT</span> — <strong>GPT-5.4 (5 Mar) + ChatGPT for Excel beta + Codex Security (10 Mar)</strong> · GDPval 83% · IB 87.3% · OSWorld 75% (supera humanos) · BigLaw 91% · 1M ctx · 47% menos tokens · 33% menos alucinaciones vs GPT-5.2 · Codex Security: agente de app-sec preview · ChatGPT for Excel: build/update modelos en workbooks nativo · Skills beta: workflows reutilizables de equipo · $110B funding · Deal Pentágono 27 Feb<br>
+    <span style="color:var(--gemini)">▶ Gemini</span> — <strong>Gemini 3.1 Pro + Flash-Lite Preview (3 Mar)</strong> · Flash-Lite: 380 tok/s · $0.25/M · ARC-AGI-2: 77.1% · Canvas US · Samsung 800M · Apple iOS 26.4 · Gemini 3.5 en roadmap<br>
+    <span style="color:var(--meta)">▶ Llama</span> — <strong>Llama 4 Scout / Maverick (2025)</strong> · Deals Google TPUs + AMD · Llama 5 anticipado 2026 · superado en coding por nuevos modelos open-source chinos<br>
+    <span style="color:var(--deepseek)">▶ DeepSeek</span> — <strong>V4 · 1T params · MIT · 50× más barato</strong> · 32B activos · multimodal nativo · $0.10–$0.30/M · Huawei+Cambricon · Distillation attack: 16M exchanges a Claude/OpenAI<br>
+    <span style="color:var(--qwen)">▶ Qwen</span> — <strong>Qwen 3.5 / Qwen3-Max-Thinking · Apache 2.0</strong> · 201 idiomas · 1M ctx · 8.85M descargas · Qwen 4 en roadmap<br>
+    <span style="color:var(--ernie)">▶ Ernie</span> — <strong>Ernie Bot 5.0 (2025)</strong> · Sin novedades · Baidu apuesta más a cloud · perdiendo cuota<br>
+    <span style="color:var(--glm)">▶ GLM-5</span> — <strong>GLM-5 744B MoE MIT (13 Feb)</strong> · SWE-bench open #1: 77.8% · Alucinaciones 90%→34% (Slime)<br>
+    <span style="color:var(--kimi)">▶ Kimi K2.5</span> — <strong>Kimi K2.5 / K2 Thinking MIT (27 ene)</strong> · 1T MoE · 100 agentes · 50.2% HLE · Distillation: 3.4M exchanges a Claude<br>
+    <span style="color:var(--grok)">▶ Grok</span> — <strong>Grok 4.20 · aprobado redes clasificadas Pentágono</strong> · Reemplaza Claude en DoD · Grok 5: 6T params Q1-Q2 2026<br>
+    <span style="color:var(--perplexity)">▶ Perplexity</span> — <strong>Sonar Pro + Computer (25 Feb)</strong> · 19 modelos · Elo 1136 · 780M+ queries/mes<br>
+    <span style="color:var(--notebooklm)">▶ NotebookLM</span> — <strong>NotebookLM Plus Gemini 3.1 Pro (26 Feb)</strong> · 1M ctx · datos NO entrenados · VPC-SC<br>
+    <span style="color:var(--mistral)">▶ Mistral</span> — <strong>Mistral Large 3 · 675B MoE · Apache 2.0 🇫🇷 (Dic 2025)</strong> · 41B activos · 256K ctx · #2 open-source LMArena · 92% GPT-5.2 al 15% del precio<br>
+    <span style="color:var(--minimax)">▶ MiniMax M2.5</span> — <strong>230B MoE · 10B activos · MIT (12 Feb)</strong> · SWE 80.2% · BFCL #1 · #4 OpenHands global · 20× más barato que modelos propietarios<br>
+    <span style="color:var(--seed)">▶ Seed 2.0</span> — <strong>ByteDance · familia Pro/Lite/Mini/Code (14 Feb)</strong> · AIME 98.3% · video 1h · Doubao 200M usuarios · 10× más barato que occidentales<br>
+    <span style="color:#60b0ff">▶ Copilot</span> — <strong>Microsoft 365 Copilot Wave 3 (9 Mar) · GPT-5.3 Instant + Claude nativo</strong> · Primer Copilot verdaderamente agéntico · Agent 365 GA 1 May ($15/user) · Cowork con Anthropic Claude: agente de Office autónomo · E7 "Frontier Suite" $99/user · Work IQ: inteligencia organizacional · 90% Fortune 500 · 160% crecimiento YoY en seats<br>
+    <span style="color:#ffb84d">▶ Nova 2</span> — <strong>Amazon Nova 2 Pro · 1M ctx · $1.25/M · AWS Bedrock (Dic 2025) 🆕</strong> · τ²-Bench Telecom 93% · IFBench 80% (#1) · Familia 4 modelos: Pro/Lite/Omni/Sonic · Nova Act: agente de browser · Nova Forge fine-tuning · extended thinking configurable · 90% Fortune 500 en AWS · no tiene pesos públicos<br><br>
+    🔥 <strong>HOY 10 Mar — LeCun AMI Labs $1.03B:</strong> Mayor ronda seed europea de la historia · Yann LeCun cofundador · $3.5B pre-money · World models basados en JEPA (alternativa a LLMs) · Inversores: Nvidia, Bezos, Temasek · 4 hubs: París, NY, Montreal, Singapur · Open-source como principio · Año 1 = investigación pura<br><br>
+    🔜 <strong>Próximos:</strong> DeepSeek V4 Lite · Grok 5 (Q1-Q2) · Gemini 3.5 · Claude 5 · GLM-5.5 · Kimi K3 · Llama 5 · Mistral Large 3 Reasoning · Qwen 4 · Copilot Agent 365 GA (1 May) · AMI Labs world models<br>
+    📊 <strong>Tendencia open-source 2026:</strong> Brecha vs propietario ~3 meses (Epoch AI) · MiniMax M2.5 primer open al nivel de Claude Opus en coding · Seed 2.0 supera GPT-5.2 en AIME25 · DeepSeek V4 50× más barato · Silicon Valley construye sobre modelos chinos open-source<br><br>
+    ⚠ Puntajes son estimaciones comparativas basadas en benchmarks públicos, NO cifras oficiales.
+  </div>
+</div>
 
-            </div>
-        </section>
+<div class="foot">
+  <div class="author-pill">
+    <div class="initials">JABF</div>
+    <div class="auth-info">
+      <span class="auth-lbl">Autor</span>
+      <span class="auth-name">Julio Arturo Bustamante Fernández</span>
+    </div>
+  </div>
+  <div class="vdiv"></div>
+  <span class="foot-date">📅 10 Mar 2026</span>
+</div>
 
-        <!-- Qualitative Impact Radar -->
-        <section class="bg-slate-900 rounded-[3rem] p-10 text-white shadow-2xl">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h3 class="text-3xl font-black mb-6 uppercase text-cyan-400">Impacto Proyectado</h3>
-                    <p class="text-slate-400 mb-8 leading-relaxed">
-                        La implementación de este gobierno de datos permitirá una mejora exponencial en la integridad y disponibilidad de la información para entes externos (MEF, JNJ) y la toma de decisiones interna.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-cyan-500/20 border border-cyan-500 flex items-center justify-center text-cyan-400">01</div>
-                            <span class="font-bold">Automatización de Reportes (SQL)</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400">02</div>
-                            <span class="font-bold">Integridad Referencial del SIJ</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-slate-500/20 border border-slate-500 flex items-center justify-center text-slate-400">03</div>
-                            <span class="font-bold">Transparencia Presupuestal (MEF)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="impactRadarChart"></canvas>
-                </div>
-            </div>
-        </section>
+</div>
+<script>
+const IAs = [
+  // 0 Claude
+  { name:'Claude', color:'#e8865a', fill:'rgba(232,134,90,0.15)',
+    scores:[95,91,98,95,96,82,81,70],
+    version:'Sonnet 4.6 / Opus 4.6 · #1 App Store EE.UU.',
+    period:'Anthropic · Ban federal 27 Feb · +60% usuarios · Claude 5 próximo' },
+  // 1 ChatGPT
+  { name:'ChatGPT', color:'#74c69d', fill:'rgba(116,198,157,0.15)',
+    scores:[96,89,79,99,92,94,93,63],
+    version:'GPT-5.4 (5 Mar) + Excel + Codex Security (10 Mar)',
+    period:'OpenAI · GDPval 83% · OSWorld 75% · 1M ctx · $110B funding' },
+  // 2 Gemini
+  { name:'Gemini', color:'#6ea8fe', fill:'rgba(110,168,254,0.15)',
+    scores:[97,84,78,91,95,98,93,83],
+    version:'Gemini 3.1 Pro + Flash-Lite Preview (3 Mar)',
+    period:'Google · Flash-Lite 380 tok/s · ARC-AGI-2: 77.1% · Canvas US' },
+  // 3 Llama
+  { name:'Llama', color:'#d6a4f7', fill:'rgba(214,164,247,0.15)',
+    scores:[83,77,71,85,83,71,89,96],
+    version:'Llama 4 Scout / Maverick',
+    period:'Meta · Deals Google TPUs + AMD · Llama 5 anticipado 2026' },
+  // 4 DeepSeek
+  { name:'DeepSeek', color:'#f7c948', fill:'rgba(247,201,72,0.13)',
+    scores:[93,76,52,96,93,82,94,93],
+    version:'V4 · 1T params · MIT · 50× más barato',
+    period:'DeepSeek AI · Mar 2026 · Multimodal · Huawei+Cambricon' },
+  // 5 Qwen
+  { name:'Qwen', color:'#f06a8a', fill:'rgba(240,106,138,0.13)',
+    scores:[89,82,62,92,92,92,91,89],
+    version:'Qwen 3.5 / Qwen3-Max-Thinking · Apache 2.0',
+    period:'Alibaba · 201 idiomas · 1M ctx · 8.85M descargas' },
+  // 6 Ernie
+  { name:'Ernie', color:'#4ecdc4', fill:'rgba(78,205,196,0.13)',
+    scores:[83,75,58,84,81,84,86,81],
+    version:'Ernie Bot 5.0',
+    period:'Baidu · 2025 · Sin novedades · perdiendo cuota' },
+  // 7 GLM-5
+  { name:'GLM-5', color:'#22d3ee', fill:'rgba(34,211,238,0.13)',
+    scores:[90,82,60,91,90,84,78,93],
+    version:'GLM-5 · 744B MoE · MIT',
+    period:'Zhipu · 13 Feb 2026 · SWE #1 open: 77.8% · Slime' },
+  // 8 Kimi
+  { name:'Kimi K2.5', color:'#ff6b9d', fill:'rgba(255,107,157,0.13)',
+    scores:[85,80,55,93,90,89,91,90],
+    version:'Kimi K2.5 / K2 Thinking · MIT',
+    period:'Moonshot AI · 27 Ene · 100 agentes · distillation 3.4M' },
+  // 9 Grok
+  { name:'Grok', color:'#a78bfa', fill:'rgba(167,139,250,0.13)',
+    scores:[91,83,58,90,88,88,95,72],
+    version:'Grok 4.20 · aprobado redes clasificadas DoD',
+    period:'xAI · Reemplaza Claude Pentágono · Grok 5: 6T params' },
+  // 10 Perplexity
+  { name:'Perplexity', color:'#20c997', fill:'rgba(32,201,151,0.13)',
+    scores:[88,78,76,80,87,85,97,78],
+    version:'Sonar Pro + Perplexity Computer',
+    period:'Perplexity AI · 25 Feb · Elo 1136 · 780M+ queries' },
+  // 11 NotebookLM
+  { name:'NotebookLM', color:'#fbbc04', fill:'rgba(251,188,4,0.13)',
+    scores:[82,86,84,60,97,88,82,85],
+    version:'NotebookLM Plus · Gemini 3.1 Pro',
+    period:'Google Labs · 26 Feb 2026 · 1M ctx · datos NO entrenados' },
+  // 12 Mistral
+  { name:'Mistral', color:'#f59e0b', fill:'rgba(245,158,11,0.13)',
+    scores:[88,80,74,89,82,79,86,95],
+    version:'Mistral Large 3 · 675B MoE · Apache 2.0 🇫🇷',
+    period:'Mistral AI · Dic 2025 · 41B activos · #2 OSS LMArena' },
+  // 13 MiniMax
+  { name:'MiniMax', color:'#38bdf8', fill:'rgba(56,189,248,0.13)',
+    scores:[87,74,55,97,82,68,92,95],
+    version:'M2.5 · 230B MoE · 10B activos · MIT (12 Feb)',
+    period:'MiniMax AI · SWE 80.2% · BFCL #1 · 20× más barato' },
+  // 14 Seed 2.0
+  { name:'Seed 2.0', color:'#a3e635', fill:'rgba(163,230,53,0.12)',
+    scores:[94,79,56,88,88,91,87,88],
+    version:'Seed 2.0 Pro · familia Pro/Lite/Mini/Code (14 Feb)',
+    period:'ByteDance · AIME 98.3% · Video 1h · Doubao 200M usuarios' },
+  // 15 Copilot
+  { name:'Copilot', color:'#0078d4', fill:'rgba(0,120,212,0.13)',
+    scores:[84,78,82,88,86,86,88,55],
+    version:'Microsoft 365 Copilot Wave 3 · GPT-5.3 + Claude',
+    period:'Microsoft · 9 Mar 2026 · Agent 365 · Cowork · E7 · Fortune 500 90%' },
+  // 16 Nova 2
+  { name:'Nova 2', color:'#ff9900', fill:'rgba(255,153,0,0.13)',
+    scores:[88,75,80,87,90,93,90,52],
+    version:'Amazon Nova 2 Pro · 1M ctx · $1.25/M · Bedrock 🆕',
+    period:'Amazon AWS · Dic 2025 · τ²-Bench 93% · Nova Act agent' }
+];
 
-    </main>
+const CATS = ['Razonamiento','Creatividad','Ética','Código','Ctx largo','Multimodal','Velocidad','Acceso libre'];
+const N = CATS.length;
+let active = 0;
+const canvas = document.getElementById('radar');
+const cx = canvas.getContext('2d');
 
-    <footer class="bg-slate-100 border-t border-slate-200 py-12 text-center">
-        <p class="text-slate-400 text-xs font-black uppercase tracking-widest mb-2">Modernización de Gobierno de Datos CSJ</p>
-        <p class="text-slate-600 font-bold">Plan de Acción Trimestral 2026</p>
-    </footer>
+function sz(){ return Math.min(Math.max(canvas.parentElement.clientWidth - 28, 200), 570); }
+function resize(){ const s = sz(); canvas.width = s; canvas.height = s; draw(); }
+const CX = () => canvas.width / 2;
+const CY = () => canvas.height / 2;
+const R  = () => canvas.width * 0.355;
+const ang = i => (Math.PI * 2 * i / N) - Math.PI / 2;
+const pt  = (i, v, r) => ({ x: CX() + Math.cos(ang(i)) * (v/100) * r, y: CY() + Math.sin(ang(i)) * (v/100) * r });
 
-    <script>
-        function formatLabel(str) {
-            if (str.length <= 15) return str;
-            const words = str.split(' ');
-            const lines = [];
-            let line = "";
-            words.forEach(w => {
-                if ((line + w).length > 15) { lines.push(line.trim()); line = ""; }
-                line += w + " ";
-            });
-            lines.push(line.trim());
-            return lines;
-        }
+function drawGrid() {
+  for (let ring = 1; ring <= 5; ring++) {
+    const rr = ring / 5 * R();
+    cx.beginPath();
+    for (let i = 0; i < N; i++) {
+      const a = ang(i), x = CX() + Math.cos(a)*rr, y = CY() + Math.sin(a)*rr;
+      i === 0 ? cx.moveTo(x, y) : cx.lineTo(x, y);
+    }
+    cx.closePath();
+    cx.strokeStyle = ring === 5 ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)';
+    cx.lineWidth = 1; cx.stroke();
+    if (ring % 2 === 0) {
+      cx.fillStyle = 'rgba(255,255,255,0.16)';
+      cx.font = `${Math.max(7, canvas.width * 0.017)}px Space Mono, monospace`;
+      cx.textAlign = 'center'; cx.textBaseline = 'bottom';
+      cx.fillText(ring * 20, CX(), CY() - rr - 2);
+    }
+  }
+  cx.strokeStyle = 'rgba(255,255,255,0.07)';
+  for (let i = 0; i < N; i++) {
+    const p = pt(i, 100, R());
+    cx.beginPath(); cx.moveTo(CX(), CY()); cx.lineTo(p.x, p.y); cx.stroke();
+  }
+}
 
-        Chart.defaults.font.family = "'Roboto', sans-serif";
-        Chart.defaults.color = '#64748b';
+function drawLabels() {
+  const fs = Math.max(8, canvas.width * 0.022);
+  cx.font = `700 ${fs}px Syne, sans-serif`;
+  cx.textAlign = 'center'; cx.textBaseline = 'middle';
+  for (let i = 0; i < N; i++) {
+    const a = ang(i), d = R() + R() * 0.15;
+    const isBest = IAs[active].scores[i] === Math.max(...IAs[active].scores);
+    cx.fillStyle = isBest ? IAs[active].color : 'rgba(232,232,240,0.36)';
+    cx.fillText(CATS[i], CX() + Math.cos(a)*d, CY() + Math.sin(a)*d);
+  }
+}
 
-        new Chart(document.getElementById('mainTimelineChart'), {
-            type: 'bar',
-            data: {
-                labels: [formatLabel('Fase 1: Normativa'), formatLabel('Fase 2: Técnica/QA'), formatLabel('Fase 3: Validación')],
-                datasets: [{
-                    label: 'Semanas',
-                    data: [4, 4, 4],
-                    backgroundColor: ['#2563eb', '#0891b2', '#1e293b'],
-                    borderRadius: 12
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: { x: { display: false }, y: { grid: { display: false } } }
-            }
-        });
+function drawIA(ia, alpha) {
+  cx.globalAlpha = alpha;
+  cx.beginPath();
+  for (let i = 0; i < N; i++) {
+    const p = pt(i, ia.scores[i], R());
+    i === 0 ? cx.moveTo(p.x, p.y) : cx.lineTo(p.x, p.y);
+  }
+  cx.closePath();
+  cx.fillStyle = ia.fill; cx.fill();
+  cx.strokeStyle = ia.color; cx.lineWidth = alpha === 1 ? 2.5 : 1; cx.stroke();
+  const dr = Math.max(2.5, canvas.width * 0.007);
+  for (let i = 0; i < N; i++) {
+    const p = pt(i, ia.scores[i], R());
+    cx.beginPath(); cx.arc(p.x, p.y, dr, 0, Math.PI * 2);
+    cx.fillStyle = ia.color; cx.globalAlpha = alpha; cx.fill();
+    if (alpha === 1) { cx.strokeStyle = 'rgba(0,0,0,0.5)'; cx.lineWidth = 1; cx.stroke(); }
+  }
+  cx.globalAlpha = 1;
+}
 
-        new Chart(document.getElementById('responsibilitiesChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['GTI/Innovación', 'Sub. Estadística', 'Relatores/Salas', 'CIJ/Equipo', 'Consejo Ejecutivo'],
-                datasets: [{
-                    data: [35, 30, 20, 10, 5],
-                    backgroundColor: ['#0891b2', '#2563eb', '#64748b', '#94a3b8', '#1e293b'],
-                    borderWidth: 0,
-                    hoverOffset: 15
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 20 } } },
-                cutout: '65%'
-            }
-        });
+function draw() {
+  cx.clearRect(0, 0, canvas.width, canvas.height);
+  drawGrid(); drawLabels();
+  IAs.forEach((ia, i) => { if (i !== active) drawIA(ia, 0.14); });
+  drawIA(IAs[active], 1);
+}
 
-        new Chart(document.getElementById('impactRadarChart'), {
-            type: 'radar',
-            data: {
-                labels: ['Automatización', 'Calidad Dato', 'Transparencia', 'Estandarización', 'Integridad SIJ'],
-                datasets: [{
-                    label: 'Post-Implementación',
-                    data: [95, 90, 85, 90, 95],
-                    fill: true,
-                    backgroundColor: 'rgba(34, 211, 238, 0.2)',
-                    borderColor: '#22d3ee',
-                    pointBackgroundColor: '#22d3ee'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    r: {
-                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        pointLabels: { color: '#94a3b8', font: { size: 10, weight: 'bold' } },
-                        ticks: { display: false }
-                    }
-                }
-            }
-        });
-    </script>
+function renderScores() {
+  const ia = IAs[active];
+  document.getElementById('iaName').textContent = ia.name;
+  document.getElementById('iaName').style.color = ia.color;
+  document.getElementById('vBadge').innerHTML =
+    `<span style="color:${ia.color};font-weight:700">${ia.version}</span><br>` +
+    `<span style="color:var(--dim);font-family:'Space Mono',monospace;font-size:.6rem">${ia.period}</span>`;
+  const c = document.getElementById('scoreRows'); c.innerHTML = '';
+  CATS.forEach((cat, i) => {
+    const v = ia.scores[i];
+    const d = document.createElement('div'); d.className = 'score-row';
+    d.innerHTML =
+      `<div class="score-meta"><span>${cat}</span><span class="score-val" style="color:${ia.color}">${v}</span></div>` +
+      `<div class="bar-bg"><div class="bar-fill" style="background:${ia.color}" data-t="${v}"></div></div>`;
+    c.appendChild(d);
+  });
+  setTimeout(() => document.querySelectorAll('.bar-fill').forEach(el => el.style.width = el.dataset.t + '%'), 40);
+}
+
+function sel(i) {
+  active = i;
+  document.querySelectorAll('.leg').forEach(el => el.classList.toggle('active', +el.dataset.i === i));
+  draw(); renderScores();
+}
+
+canvas.addEventListener('click', e => {
+  const rect = canvas.getBoundingClientRect();
+  const mx = (e.clientX - rect.left) * canvas.width / rect.width;
+  const my = (e.clientY - rect.top) * canvas.height / rect.height;
+  let best = -1, bestDist = Infinity;
+  IAs.forEach((ia, idx) => {
+    let ox = 0, oy = 0;
+    ia.scores.forEach((v, i) => { const p = pt(i, v, R()); ox += p.x; oy += p.y; });
+    ox /= N; oy /= N;
+    const d = Math.hypot(mx - ox, my - oy);
+    if (d < bestDist) { bestDist = d; best = idx; }
+  });
+  if (best >= 0) sel(best);
+});
+
+resize(); renderScores();
+let rTimer;
+window.addEventListener('resize', () => { clearTimeout(rTimer); rTimer = setTimeout(resize, 80); });
+</script>
 </body>
 </html>
