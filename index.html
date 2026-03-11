@@ -63,9 +63,12 @@ header{text-align:center;margin-bottom:28px}
 .bar-bg{height:4px;background:rgba(255,255,255,.06);border-radius:3px}
 .bar-fill{height:100%;border-radius:3px;width:0%;transition:width .75s cubic-bezier(.23,1,.32,1);position:relative}
 .bar-fill::after{content:'';position:absolute;right:-4px;top:-3px;width:10px;height:10px;border-radius:50%;background:inherit;filter:brightness(1.7);box-shadow:0 0 5px currentColor}
-.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
-.cat{font-size:.68rem;color:var(--muted);display:flex;align-items:center;gap:5px}
-.cat::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--dim);flex-shrink:0}
+.cat-grid{display:grid;grid-template-columns:1fr;gap:7px}
+.cat{display:flex;align-items:flex-start;gap:8px}
+.cat-icon{font-size:.9rem;flex-shrink:0;line-height:1.35;margin-top:1px}
+.cat-body{display:flex;flex-direction:column;gap:1px}
+.cat-name{font-weight:700;color:rgba(232,232,240,.85);font-size:.71rem;line-height:1.2}
+.cat-desc{font-family:'Space Mono',monospace;font-size:.55rem;color:var(--dim);line-height:1.45}
 
 .sources-section{margin-top:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px}
 .src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px}
@@ -178,10 +181,14 @@ header{text-align:center;margin-bottom:28px}
     <div class="card">
       <div class="panel-label">Categorías evaluadas</div>
       <div class="cat-grid">
-        <div class="cat">Razonamiento</div><div class="cat">Creatividad</div>
-        <div class="cat">Ética</div><div class="cat">Código</div>
-        <div class="cat">Ctx largo</div><div class="cat">Multimodal</div>
-        <div class="cat">Velocidad</div><div class="cat">Acceso libre</div>
+        <div class="cat"><span class="cat-icon">🧠</span><div class="cat-body"><span class="cat-name">Razonamiento</span><span class="cat-desc">Lógica, matemáticas, inferencia causal y resolución de problemas complejos</span></div></div>
+        <div class="cat"><span class="cat-icon">✨</span><div class="cat-body"><span class="cat-name">Creatividad</span><span class="cat-desc">Escritura literaria, generación de ideas originales y producción artística</span></div></div>
+        <div class="cat"><span class="cat-icon">⚖️</span><div class="cat-body"><span class="cat-name">Ética</span><span class="cat-desc">Alineación con valores humanos, rechazo de daño y transparencia de intenciones</span></div></div>
+        <div class="cat"><span class="cat-icon">💻</span><div class="cat-body"><span class="cat-name">Código</span><span class="cat-desc">Programación, depuración, arquitectura de software y benchmarks SWE-Bench</span></div></div>
+        <div class="cat"><span class="cat-icon">📜</span><div class="cat-body"><span class="cat-name">Ctx largo</span><span class="cat-desc">Procesamiento de documentos extensos, libros o bases de código en una sola ventana</span></div></div>
+        <div class="cat"><span class="cat-icon">👁️</span><div class="cat-body"><span class="cat-name">Multimodal</span><span class="cat-desc">Comprensión y generación con texto, imágenes, audio y video simultáneamente</span></div></div>
+        <div class="cat"><span class="cat-icon">⚡</span><div class="cat-body"><span class="cat-name">Velocidad</span><span class="cat-desc">Tokens por segundo, latencia de primera respuesta y eficiencia en inferencia</span></div></div>
+        <div class="cat"><span class="cat-icon">🔓</span><div class="cat-body"><span class="cat-name">Acceso libre</span><span class="cat-desc">Disponibilidad de pesos abiertos, licencias permisivas y uso gratuito o local</span></div></div>
       </div>
     </div>
   </div>
