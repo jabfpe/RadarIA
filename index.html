@@ -13,17 +13,18 @@
   --deepseek:#f7c948;--qwen:#f06a8a;--ernie:#4ecdc4;--glm:#22d3ee;
   --kimi:#ff6b9d;--grok:#a78bfa;--perplexity:#20c997;--notebooklm:#fbbc04;
   --mistral:#f59e0b;--minimax:#38bdf8;--seed:#a3e635;--copilot:#0078d4;--nova:#ff9900;
+  --mimo:#f43f5e;
+  --composer:#7c3aed;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100svh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 50% 35% at 10% 8%,rgba(232,134,90,.05) 0%,transparent 55%),
-    radial-gradient(ellipse 50% 35% at 90% 90%,rgba(116,198,157,.05) 0%,transparent 55%),
-    radial-gradient(ellipse 35% 25% at 50% 50%,rgba(56,189,248,.03) 0%,transparent 50%)}
+  background:radial-gradient(ellipse 50% 35% at 10% 8%,rgba(232,134,90,.05) 0%,transparent 55%),
+             radial-gradient(ellipse 50% 35% at 90% 90%,rgba(116,198,157,.05) 0%,transparent 55%)}
 .wrap{position:relative;z-index:1;max-width:1220px;margin:0 auto;padding:24px 16px 52px}
 
+/* HEADER */
 header{text-align:center;margin-bottom:28px}
 .h-title{font-size:clamp(1.7rem,5vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.08}
 .h-title em{color:var(--claude);font-style:normal}
@@ -35,13 +36,16 @@ header{text-align:center;margin-bottom:28px}
 .pulse{animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.65)}}
 
+/* MAIN GRID */
 .main-grid{display:grid;grid-template-columns:1fr 316px;gap:14px;align-items:start}
 @media(max-width:920px){.main-grid{grid-template-columns:1fr}}
 
+/* CARDS */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px}
 .radar-card{display:flex;flex-direction:column;align-items:center;padding:18px}
 #radar{display:block;width:100%;max-width:560px;height:auto;cursor:pointer}
 
+/* SIDE */
 .side{display:flex;flex-direction:column;gap:10px}
 .panel-label{font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);margin-bottom:9px}
 .group-label{font-family:'Space Mono',monospace;font-size:.54rem;letter-spacing:.09em;text-transform:uppercase;margin:7px 0 3px 2px}
@@ -56,6 +60,7 @@ header{text-align:center;margin-bottom:28px}
 .leg-co{margin-left:auto;font-family:'Space Mono',monospace;font-size:.53rem;color:var(--dim);white-space:nowrap;padding-left:4px}
 .leg-new{font-family:'Space Mono',monospace;font-size:.46rem;padding:1px 4px;border-radius:4px;margin-left:3px;font-weight:700;text-transform:uppercase}
 
+/* DETAIL PANEL */
 #vBadge{font-size:.79rem;line-height:1.6}
 .score-row{margin-bottom:9px}
 .score-meta{display:flex;justify-content:space-between;margin-bottom:3px;font-size:.69rem}
@@ -63,6 +68,8 @@ header{text-align:center;margin-bottom:28px}
 .bar-bg{height:4px;background:rgba(255,255,255,.06);border-radius:3px}
 .bar-fill{height:100%;border-radius:3px;width:0%;transition:width .75s cubic-bezier(.23,1,.32,1);position:relative}
 .bar-fill::after{content:'';position:absolute;right:-4px;top:-3px;width:10px;height:10px;border-radius:50%;background:inherit;filter:brightness(1.7);box-shadow:0 0 5px currentColor}
+
+/* CATEGORIES */
 .cat-grid{display:grid;grid-template-columns:1fr;gap:7px}
 .cat{display:flex;align-items:flex-start;gap:8px}
 .cat-icon{font-size:.9rem;flex-shrink:0;line-height:1.35;margin-top:1px}
@@ -70,6 +77,23 @@ header{text-align:center;margin-bottom:28px}
 .cat-name{font-weight:700;color:rgba(232,232,240,.85);font-size:.71rem;line-height:1.2}
 .cat-desc{font-family:'Space Mono',monospace;font-size:.55rem;color:var(--dim);line-height:1.45}
 
+/* RECOMMENDATIONS SECTION */
+.reco-section{margin-top:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px}
+.reco-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:14px}
+.reco-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px 16px}
+.reco-header{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.reco-icon{font-size:1.1rem;flex-shrink:0}
+.reco-title{font-weight:800;font-size:.82rem;line-height:1.2}
+.reco-subtitle{font-family:'Space Mono',monospace;font-size:.55rem;color:var(--dim);margin-top:1px}
+.reco-picks{display:flex;flex-direction:column;gap:6px}
+.pick{display:flex;align-items:flex-start;gap:8px;padding:7px 9px;border-radius:7px;background:rgba(0,0,0,.2)}
+.pick-rank{font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;flex-shrink:0;width:16px;text-align:center;margin-top:1px;opacity:.7}
+.pick-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.pick-body{display:flex;flex-direction:column;gap:1px}
+.pick-name{font-weight:700;font-size:.75rem}
+.pick-why{font-family:'Space Mono',monospace;font-size:.53rem;color:var(--dim);line-height:1.4}
+
+/* SOURCES */
 .sources-section{margin-top:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px}
 .src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px}
 .src-item{display:flex;flex-direction:column;gap:2px}
@@ -80,6 +104,7 @@ header{text-align:center;margin-bottom:28px}
 .disc{border-top:1px solid rgba(255,255,255,.05);padding-top:11px;font-family:'Space Mono',monospace;font-size:.59rem;color:var(--dim);line-height:1.75}
 .disc strong{color:rgba(232,232,240,.65)}
 
+/* FOOTER */
 .foot{margin-top:22px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
 .author-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:999px;padding:6px 14px 6px 7px}
 .initials{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--claude),#c84b9e);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.62rem;color:#fff;flex-shrink:0}
@@ -89,34 +114,50 @@ header{text-align:center;margin-bottom:28px}
 .vdiv{width:1px;height:20px;background:rgba(255,255,255,.08)}
 .foot-date{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim)}
 .touch-hint{font-family:'Space Mono',monospace;font-size:.55rem;color:var(--dim);text-align:center;margin-top:7px;letter-spacing:.07em}
-@media(max-width:480px){.wrap{padding:14px 8px 32px}.card,.radar-card{padding:10px}.sources-section{padding:12px}.src-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.wrap{padding:14px 8px 32px}.card,.radar-card{padding:10px}.sources-section,.reco-section{padding:12px 14px}.src-grid{grid-template-columns:1fr 1fr}.reco-grid{grid-template-columns:1fr}}
+
+.pick-links{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.pick-link{display:inline-flex;align-items:center;gap:4px;font-family:'Space Mono',monospace;font-size:.5rem;padding:2px 8px;border-radius:5px;text-decoration:none;border:1px solid rgba(255,255,255,.12);color:rgba(232,232,240,.65);background:rgba(255,255,255,.04);transition:background .15s,color .15s;white-space:nowrap}
+.pick-link:hover{background:rgba(255,255,255,.1);color:#fff}
+.pick-link svg{flex-shrink:0}
 </style>
 </head>
 <body>
 <div class="wrap">
 
+<!-- HEADER -->
 <header>
   <h1 class="h-title">Asistentes de IA<br><em>Comparados</em></h1>
-  <p class="h-sub">Radar multidimensional · <b>10 marzo 2026</b> · 17 modelos</p>
+  <p class="h-sub">Radar multidimensional · <b>21 marzo 2026</b> · 17 modelos</p>
   <div class="badges">
-    <span class="badge" style="border:1px solid rgba(255,153,0,.5);background:rgba(255,153,0,.1);color:#ffb84d">
-      <span class="badge-dot pulse" style="background:#ffb84d"></span>NUEVO: Amazon Nova 2 · τ²-Bench 93% · $1.25/M
+    <span class="badge" style="border:1px solid rgba(124,58,237,.6);background:rgba(124,58,237,.12);color:#a78bfa">
+      <span class="badge-dot pulse" style="background:#a78bfa"></span>NUEVO: Cursor Composer 2 · fine-tune Kimi K2.5 · beats Claude Opus · $0.50/M
     </span>
-    <span class="badge" style="border:1px solid rgba(0,120,212,.5);background:rgba(0,120,212,.1);color:#60b0ff">
-      <span class="badge-dot" style="background:#60b0ff"></span>Copilot Wave 3 · Claude+GPT · Agent 365
+    <span class="badge" style="border:1px solid rgba(244,63,94,.5);background:rgba(244,63,94,.1);color:#fb7185">
+      <span class="badge-dot" style="background:#fb7185"></span>Xiaomi MiMo-V2-Pro · 1T params · ex-DeepSeek · +5.8% HKG
     </span>
-    <span class="badge" style="border:1px solid rgba(139,92,246,.4);background:rgba(139,92,246,.08);color:#c4b5fd">
-      <span class="badge-dot" style="background:#c4b5fd"></span>LeCun AMI Labs $1.03B · world models
+    <span class="badge" style="border:1px solid rgba(116,198,157,.5);background:rgba(116,198,157,.1);color:var(--gpt)">
+      <span class="badge-dot pulse" style="background:var(--gpt)"></span>GPT-5.4 Mini a todos los tiers HOY · GPT-5 Thinking mini se retira 30d
+    </span>
+    <span class="badge" style="border:1px solid rgba(232,134,90,.5);background:rgba(232,134,90,.1);color:var(--claude)">
+      <span class="badge-dot" style="background:var(--claude)"></span>OpenAI+Google+MS respaldan a Anthropic en cortes vs ban DoD
+    </span>
+    <span class="badge" style="border:1px solid rgba(200,50,50,.4);background:rgba(200,50,50,.08);color:#f87171">
+      <span class="badge-dot" style="background:#f87171"></span>Trump Marco Nacional IA · pre-empta regulación estatal
     </span>
     <span class="badge" style="border:1px solid rgba(116,198,157,.4);background:rgba(116,198,157,.08);color:var(--gpt)">
       <span class="badge-dot" style="background:var(--gpt)"></span>GPT-5.4 + Excel + Codex Security
     </span>
+    <span class="badge" style="border:1px solid rgba(247,201,72,.4);background:rgba(247,201,72,.08);color:var(--deepseek)">
+      <span class="badge-dot" style="background:var(--deepseek)"></span>DeepSeek V4 · MIT · 50× más barato
+    </span>
     <span class="badge" style="border:1px solid rgba(232,134,90,.4);background:rgba(232,134,90,.08);color:var(--claude)">
-      <span class="badge-dot" style="background:var(--claude)"></span>Claude #1 App Store · impugna ban
+      <span class="badge-dot" style="background:var(--claude)"></span>Claude #1 App Store · impugna ban federal
     </span>
   </div>
 </header>
 
+<!-- RADAR + SIDE -->
 <div class="main-grid">
   <div class="card radar-card">
     <canvas id="radar"></canvas>
@@ -127,8 +168,7 @@ header{text-align:center;margin-bottom:28px}
     <div class="card">
       <div class="panel-label">Modelos (17)</div>
       <div class="legend-grid">
-
-        <div class="group-label" style="color:var(--claude)">🌎 Occidentales (10)</div>
+        <div class="group-label" style="color:var(--claude)">🌎 Occidentales (11)</div>
         <div class="leg active" data-i="0"  onclick="sel(0)"><div class="leg-dot" style="background:var(--claude)"></div><span class="leg-name">Claude</span><span class="leg-co">Anthropic</span></div>
         <div class="leg"        data-i="1"  onclick="sel(1)"><div class="leg-dot" style="background:var(--gpt)"></div><span class="leg-name">ChatGPT</span><span class="leg-co">OpenAI</span></div>
         <div class="leg"        data-i="2"  onclick="sel(2)"><div class="leg-dot" style="background:var(--gemini)"></div><span class="leg-name">Gemini</span><span class="leg-co">Google</span></div>
@@ -137,33 +177,23 @@ header{text-align:center;margin-bottom:28px}
         <div class="leg"        data-i="10" onclick="sel(10)"><div class="leg-dot" style="background:var(--perplexity)"></div><span class="leg-name">Perplexity</span><span class="leg-co">Perplexity AI</span></div>
         <div class="leg"        data-i="11" onclick="sel(11)"><div class="leg-dot" style="background:var(--notebooklm)"></div><span class="leg-name">NotebookLM</span><span class="leg-co">Google Labs</span></div>
         <div class="leg"        data-i="12" onclick="sel(12)"><div class="leg-dot" style="background:var(--mistral)"></div><span class="leg-name">Mistral</span><span class="leg-co">Mistral AI 🇫🇷</span></div>
-        <div class="leg"        data-i="15" onclick="sel(15)">
-          <div class="leg-dot" style="background:var(--copilot)"></div>
-          <span class="leg-name">Copilot</span>
-          <span class="leg-co">Microsoft</span>
-        </div>
-        <div class="leg"        data-i="16" onclick="sel(16)">
-          <div class="leg-dot" style="background:var(--nova)"></div>
-          <span class="leg-name">Nova 2</span>
-          <span class="leg-new" style="background:rgba(255,153,0,.2);color:#ffb84d">NEW</span>
-          <span class="leg-co">Amazon AWS</span>
-        </div>
+        <div class="leg"        data-i="15" onclick="sel(15)"><div class="leg-dot" style="background:var(--copilot)"></div><span class="leg-name">Copilot</span><span class="leg-co">Microsoft</span></div>
+        <div class="leg"        data-i="16" onclick="sel(16)"><div class="leg-dot" style="background:var(--nova)"></div><span class="leg-name">Nova 2</span><span class="leg-co">Amazon AWS</span></div>
+        <div class="leg"        data-i="18" onclick="sel(18)"><div class="leg-dot" style="background:var(--composer)"></div><span class="leg-name">Composer 2</span><span class="leg-new" style="background:rgba(124,58,237,.2);color:#a78bfa">NEW</span><span class="leg-co">Cursor</span></div>
 
-        <div class="group-label" style="color:var(--deepseek)">🇨🇳 Chinos (7)</div>
+        <div class="group-label" style="color:var(--deepseek)">🇨🇳 Chinos (8)</div>
         <div class="leg"        data-i="4"  onclick="sel(4)"><div class="leg-dot" style="background:var(--deepseek)"></div><span class="leg-name">DeepSeek</span><span class="leg-co">DeepSeek AI</span></div>
         <div class="leg"        data-i="5"  onclick="sel(5)"><div class="leg-dot" style="background:var(--qwen)"></div><span class="leg-name">Qwen</span><span class="leg-co">Alibaba</span></div>
         <div class="leg"        data-i="6"  onclick="sel(6)"><div class="leg-dot" style="background:var(--ernie)"></div><span class="leg-name">Ernie</span><span class="leg-co">Baidu</span></div>
         <div class="leg"        data-i="7"  onclick="sel(7)"><div class="leg-dot" style="background:var(--glm)"></div><span class="leg-name">GLM-5</span><span class="leg-co">Zhipu / Z.ai</span></div>
         <div class="leg"        data-i="8"  onclick="sel(8)"><div class="leg-dot" style="background:var(--kimi)"></div><span class="leg-name">Kimi K2.5</span><span class="leg-co">Moonshot AI</span></div>
-        <div class="leg"        data-i="13" onclick="sel(13)">
-          <div class="leg-dot" style="background:var(--minimax)"></div>
-          <span class="leg-name">MiniMax</span>
-          <span class="leg-co">MiniMax AI</span>
-        </div>
-        <div class="leg"        data-i="14" onclick="sel(14)">
-          <div class="leg-dot" style="background:var(--seed)"></div>
-          <span class="leg-name">Seed 2.0</span>
-          <span class="leg-co">ByteDance</span>
+        <div class="leg"        data-i="13" onclick="sel(13)"><div class="leg-dot" style="background:var(--minimax)"></div><span class="leg-name">MiniMax</span><span class="leg-co">MiniMax AI</span></div>
+        <div class="leg"        data-i="14" onclick="sel(14)"><div class="leg-dot" style="background:var(--seed)"></div><span class="leg-name">Seed 2.0</span><span class="leg-co">ByteDance</span></div>
+        <div class="leg"        data-i="17" onclick="sel(17)">
+          <div class="leg-dot" style="background:var(--mimo)"></div>
+          <span class="leg-name">MiMo</span>
+          <span class="leg-new" style="background:rgba(244,63,94,.2);color:#fb7185">NEW</span>
+          <span class="leg-co">Xiaomi AI</span>
         </div>
       </div>
     </div>
@@ -194,51 +224,219 @@ header{text-align:center;margin-bottom:28px}
   </div>
 </div>
 
+<!-- RECOMMENDATIONS SECTION -->
+<div class="reco-section">
+  <div class="panel-label">🎯 Recomendaciones de uso por categoría · criterio JABF · 24 Mar 2026</div>
+  <p style="font-family:'Space Mono',monospace;font-size:.6rem;color:var(--dim);margin-top:4px;margin-bottom:0">Selección basada en benchmarks públicos, costo, disponibilidad y experiencia práctica. Cada categoría lista el modelo ideal y alternativas justificadas.</p>
+
+  <div class="reco-grid">
+
+    <!-- Razonamiento -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">🧠</span>
+        <div><div class="reco-title">Razonamiento complejo</div><div class="reco-subtitle">Matemáticas · lógica · ciencia · STEM</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--gemini)">#1</span><div class="pick-dot" style="background:var(--gemini)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gemini)">Gemini 3.1 Pro</span><span class="pick-why">ARC-AGI-2: 77.1% · 13/16 benchmarks SOTA · razonamiento científico y matemático superior</span><div class="pick-links"><a class="pick-link" href="https://gemini.google.com" target="_blank" style="border-color:#6ea8fe44;color:#6ea8fe">Gemini ↗</a><a class="pick-link" href="https://aistudio.google.com" target="_blank" style="border-color:#6ea8fe44;color:#6ea8fe">AI Studio ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--seed)">#2</span><div class="pick-dot" style="background:var(--seed)"></div><div class="pick-body"><span class="pick-name" style="color:var(--seed)">Seed 2.0 Pro</span><span class="pick-why">AIME 2025: 98.3% · IMO/ICPC/CMO gold · mejor modelo para competencias matemáticas puras</span><div class="pick-links"><a class="pick-link" href="https://www.doubao.com" target="_blank" style="border-color:#a3e63544;color:#a3e635">Doubao ↗</a><a class="pick-link" href="https://platform.moonshot.cn" target="_blank" style="border-color:#a3e63544;color:#a3e635">API ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--gpt)">#3</span><div class="pick-dot" style="background:var(--gpt)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gpt)">ChatGPT GPT-5.4</span><span class="pick-why">GDPval 83% · IB 87.3% · mejor para razonamiento aplicado a trabajo profesional real</span><div class="pick-links"><a class="pick-link" href="https://chatgpt.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">ChatGPT ↗</a><a class="pick-link" href="https://platform.openai.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">API ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Creatividad -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">✨</span>
+        <div><div class="reco-title">Escritura y creatividad</div><div class="reco-subtitle">Narrativa · copywriting · guiones · poesía</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--claude)">#1</span><div class="pick-dot" style="background:var(--claude)"></div><div class="pick-body"><span class="pick-name" style="color:var(--claude)">Claude Opus 4.6</span><span class="pick-why">Voz narrativa más natural del mercado · mejor para ficción larga y textos con matiz emocional profundo</span><div class="pick-links"><a class="pick-link" href="https://claude.ai" target="_blank" style="border-color:#e8865a44;color:#e8865a">Claude.ai ↗</a><a class="pick-link" href="https://www.anthropic.com/api" target="_blank" style="border-color:#e8865a44;color:#e8865a">API ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--gpt)">#2</span><div class="pick-dot" style="background:var(--gpt)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gpt)">ChatGPT GPT-5.4</span><span class="pick-why">Versatilidad creativa alta · ideal para copywriting comercial, guiones y creatividad estructurada</span><div class="pick-links"><a class="pick-link" href="https://chatgpt.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">ChatGPT ↗</a><a class="pick-link" href="https://platform.openai.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">API ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--notebooklm)">#3</span><div class="pick-dot" style="background:var(--notebooklm)"></div><div class="pick-body"><span class="pick-name" style="color:var(--notebooklm)">NotebookLM Plus</span><span class="pick-why">Único con Audio Overviews y Mind Maps · ideal para transformar documentos en contenido creativo</span><div class="pick-links"><a class="pick-link" href="https://notebooklm.google.com" target="_blank" style="border-color:#fbbc0444;color:#fbbc04">NotebookLM ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Código -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">💻</span>
+        <div><div class="reco-title">Desarrollo de software</div><div class="reco-subtitle">Código · debug · arquitectura · SWE-Bench</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--gpt)">#1</span><div class="pick-dot" style="background:var(--gpt)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gpt)">ChatGPT GPT-5.4</span><span class="pick-why">Código 99/100 · Computer Use nativo · Codex Security preview · mejor para proyectos productivos completos</span><div class="pick-links"><a class="pick-link" href="https://chatgpt.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">ChatGPT ↗</a><a class="pick-link" href="https://platform.openai.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">API ↗</a><a class="pick-link" href="https://github.com/features/copilot" target="_blank" style="border-color:#74c69d44;color:#74c69d">Copilot ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--claude)">#2</span><div class="pick-dot" style="background:var(--claude)"></div><div class="pick-body"><span class="pick-name" style="color:var(--claude)">Claude Sonnet 4.6</span><span class="pick-why">SWE-bench 82.1% (primer >80%) · mejor para refactoring, revisión de código y agentic coding</span><div class="pick-links"><a class="pick-link" href="https://claude.ai" target="_blank" style="border-color:#e8865a44;color:#e8865a">Claude.ai ↗</a><a class="pick-link" href="https://www.anthropic.com/api" target="_blank" style="border-color:#e8865a44;color:#e8865a">API ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:#a78bfa">#3 IDE</span><div class="pick-dot" style="background:var(--composer)"></div><div class="pick-body"><span class="pick-name" style="color:#a78bfa">Cursor Composer 2</span><span class="pick-why">Terminal-Bench 61.7 · SWE-ML 73.7 · fine-tune Kimi K2.5 · supera Claude Opus 4.6 · $0.50/M · self-summary para repos largos · integrado en Cursor IDE + JetBrains</span><div class="pick-links"><a class="pick-link" href="https://cursor.com" target="_blank" style="border-color:#7c3aed44;color:#a78bfa">Cursor IDE ↗</a><a class="pick-link" href="https://cursor.com/blog/composer-2" target="_blank" style="border-color:#7c3aed44;color:#a78bfa">Blog ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--minimax)">#4 open</span><div class="pick-dot" style="background:var(--minimax)"></div><div class="pick-body"><span class="pick-name" style="color:var(--minimax)">MiniMax M2.5</span><span class="pick-why">SWE 80.2% · BFCL #1 · MIT · primero open que iguala a Claude Sonnet · 20× más barato · ideal fuera de IDE específico</span><div class="pick-links"><a class="pick-link" href="https://huggingface.co/MiniMaxAI/MiniMax-M2.5" target="_blank" style="border-color:#38bdf844;color:#38bdf8">HuggingFace ↗</a><a class="pick-link" href="https://api.minimax.io" target="_blank" style="border-color:#38bdf844;color:#38bdf8">API ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Contexto largo -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">📜</span>
+        <div><div class="reco-title">Documentos extensos</div><div class="reco-subtitle">Libros · contratos · repositorios · informes</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--notebooklm)">#1</span><div class="pick-dot" style="background:var(--notebooklm)"></div><div class="pick-body"><span class="pick-name" style="color:var(--notebooklm)">NotebookLM Plus</span><span class="pick-why">1M ctx · datos NO entrenados (privacidad máxima) · Audio/Video Overviews · ideal para investigación</span><div class="pick-links"><a class="pick-link" href="https://notebooklm.google.com" target="_blank" style="border-color:#fbbc0444;color:#fbbc04">NotebookLM ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--claude)">#2</span><div class="pick-dot" style="background:var(--claude)"></div><div class="pick-body"><span class="pick-name" style="color:var(--claude)">Claude Opus 4.6</span><span class="pick-why">96/100 contexto · mejor comprensión de razonamiento sobre libros y contratos extensos</span><div class="pick-links"><a class="pick-link" href="https://claude.ai" target="_blank" style="border-color:#e8865a44;color:#e8865a">Claude.ai ↗</a><a class="pick-link" href="https://www.anthropic.com/api" target="_blank" style="border-color:#e8865a44;color:#e8865a">API ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--nova)">#3 AWS</span><div class="pick-dot" style="background:var(--nova)"></div><div class="pick-body"><span class="pick-name" style="color:var(--nova)">Amazon Nova 2</span><span class="pick-why">1M ctx · IFBench #1 · $1.25/M (más barato de su clase) · ideal para pipelines de documentos en AWS</span><div class="pick-links"><a class="pick-link" href="https://aws.amazon.com/bedrock/nova/" target="_blank" style="border-color:#ff990044;color:#ff9900">AWS Bedrock ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Multimodal -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">👁️</span>
+        <div><div class="reco-title">Visión y multimedia</div><div class="reco-subtitle">Imágenes · video · audio · análisis visual</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--gemini)">#1</span><div class="pick-dot" style="background:var(--gemini)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gemini)">Gemini 3.1 Pro</span><span class="pick-why">98/100 multimodal · nativo texto+imagen+audio+video · ARC-AGI-2 visual top del mercado</span><div class="pick-links"><a class="pick-link" href="https://gemini.google.com" target="_blank" style="border-color:#6ea8fe44;color:#6ea8fe">Gemini ↗</a><a class="pick-link" href="https://aistudio.google.com" target="_blank" style="border-color:#6ea8fe44;color:#6ea8fe">AI Studio ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--seed)">#2 video</span><div class="pick-dot" style="background:var(--seed)"></div><div class="pick-body"><span class="pick-name" style="color:var(--seed)">Seed 2.0 Pro</span><span class="pick-why">VideoMME 89.5% · comprende videos de 1 hora completa · único en análisis de video largo</span><div class="pick-links"><a class="pick-link" href="https://www.doubao.com" target="_blank" style="border-color:#a3e63544;color:#a3e635">Doubao ↗</a><a class="pick-link" href="https://platform.moonshot.cn" target="_blank" style="border-color:#a3e63544;color:#a3e635">API Kimi ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--gpt)">#3</span><div class="pick-dot" style="background:var(--gpt)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gpt)">ChatGPT GPT-5.4</span><span class="pick-why">94/100 · Computer Use + visión integrados · ideal para automatización de interfaz visual</span><div class="pick-links"><a class="pick-link" href="https://chatgpt.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">ChatGPT ↗</a><a class="pick-link" href="https://platform.openai.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">API ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Velocidad / bajo costo -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">⚡</span>
+        <div><div class="reco-title">Velocidad y bajo costo</div><div class="reco-subtitle">Alto volumen · tiempo real · APIs masivas</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--perplexity)">#1</span><div class="pick-dot" style="background:var(--perplexity)"></div><div class="pick-body"><span class="pick-name" style="color:var(--perplexity)">Perplexity Sonar</span><span class="pick-why">97/100 · 780M queries/mes · SimpleQA 93.9% · ideal para búsqueda y respuesta en tiempo real</span><div class="pick-links"><a class="pick-link" href="https://www.perplexity.ai" target="_blank" style="border-color:#20c99744;color:#20c997">Perplexity ↗</a><a class="pick-link" href="https://www.perplexity.ai/pro" target="_blank" style="border-color:#20c99744;color:#20c997">Pro ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--gemini)">#2</span><div class="pick-dot" style="background:var(--gemini)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gemini)">Gemini Flash-Lite</span><span class="pick-why">380 tok/s · $0.25/M tokens · el modelo más rápido del ecosistema frontier para producción masiva</span><div class="pick-links"><a class="pick-link" href="https://aistudio.google.com" target="_blank" style="border-color:#6ea8fe44;color:#6ea8fe">AI Studio ↗</a><a class="pick-link" href="https://cloud.google.com/vertex-ai" target="_blank" style="border-color:#6ea8fe44;color:#6ea8fe">Vertex AI ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--deepseek)">#3 costo</span><div class="pick-dot" style="background:var(--deepseek)"></div><div class="pick-body"><span class="pick-name" style="color:var(--deepseek)">DeepSeek V4</span><span class="pick-why">$0.10–$0.30/M · 50× más barato que GPT-5.2 · HumanEval 90% · mejor ROI del mercado</span><div class="pick-links"><a class="pick-link" href="https://chat.deepseek.com" target="_blank" style="border-color:#f7c94844;color:#f7c948">DeepSeek Chat ↗</a><a class="pick-link" href="https://platform.deepseek.com" target="_blank" style="border-color:#f7c94844;color:#f7c948">API ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Privacidad / open-source -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">🔓</span>
+        <div><div class="reco-title">Open-source y privacidad</div><div class="reco-subtitle">Self-hosted · sin telemetría · datos sensibles</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--meta)">#1</span><div class="pick-dot" style="background:var(--meta)"></div><div class="pick-body"><span class="pick-name" style="color:var(--meta)">Llama 4 Scout</span><span class="pick-why">96/100 acceso libre · Meta Apache · mejor balance calidad/self-hosting para datos confidenciales</span><div class="pick-links"><a class="pick-link" href="https://meta.ai" target="_blank" style="border-color:#d6a4f744;color:#d6a4f7">Meta.ai ↗</a><a class="pick-link" href="https://huggingface.co/meta-llama" target="_blank" style="border-color:#d6a4f744;color:#d6a4f7">HuggingFace ↗</a><a class="pick-link" href="https://ollama.com/library/llama4" target="_blank" style="border-color:#d6a4f744;color:#d6a4f7">Ollama ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--mistral)">#2 🇪🇺</span><div class="pick-dot" style="background:var(--mistral)"></div><div class="pick-body"><span class="pick-name" style="color:var(--mistral)">Mistral Large 3</span><span class="pick-why">Apache 2.0 · europeo (GDPR nativo) · 92% GPT-5.2 al 15% del precio · ideal para empresas UE</span><div class="pick-links"><a class="pick-link" href="https://chat.mistral.ai" target="_blank" style="border-color:#f59e0b44;color:#f59e0b">Le Chat ↗</a><a class="pick-link" href="https://mistral.ai/api" target="_blank" style="border-color:#f59e0b44;color:#f59e0b">API ↗</a><a class="pick-link" href="https://huggingface.co/mistralai" target="_blank" style="border-color:#f59e0b44;color:#f59e0b">HuggingFace ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--qwen)">#3</span><div class="pick-dot" style="background:var(--qwen)"></div><div class="pick-body"><span class="pick-name" style="color:var(--qwen)">Qwen 3.5</span><span class="pick-why">Apache 2.0 · 201 idiomas · mejor multilingüe open-source · 8.85M descargas en HuggingFace</span><div class="pick-links"><a class="pick-link" href="https://huggingface.co/Qwen" target="_blank" style="border-color:#f06a8a44;color:#f06a8a">HuggingFace ↗</a><a class="pick-link" href="https://dashscope.aliyuncs.com" target="_blank" style="border-color:#f06a8a44;color:#f06a8a">DashScope API ↗</a><a class="pick-link" href="https://ollama.com/library/qwen3" target="_blank" style="border-color:#f06a8a44;color:#f06a8a">Ollama ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Ética y seguridad -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">⚖️</span>
+        <div><div class="reco-title">Uso responsable y seguro</div><div class="reco-subtitle">Educación · salud · juridico · menores</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--claude)">#1</span><div class="pick-dot" style="background:var(--claude)"></div><div class="pick-body"><span class="pick-name" style="color:var(--claude)">Claude Opus 4.6</span><span class="pick-why">98/100 ética · única IA que rechazó uso en armas autónomas · máxima alineación con valores humanos</span><div class="pick-links"><a class="pick-link" href="https://claude.ai" target="_blank" style="border-color:#e8865a44;color:#e8865a">Claude.ai ↗</a><a class="pick-link" href="https://www.anthropic.com/api" target="_blank" style="border-color:#e8865a44;color:#e8865a">API ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--notebooklm)">#2</span><div class="pick-dot" style="background:var(--notebooklm)"></div><div class="pick-body"><span class="pick-name" style="color:var(--notebooklm)">NotebookLM Plus</span><span class="pick-why">84/100 · datos NUNCA se usan para entrenamiento · ideal para documentos sensibles de salud o legal</span><div class="pick-links"><a class="pick-link" href="https://notebooklm.google.com" target="_blank" style="border-color:#fbbc0444;color:#fbbc04">NotebookLM ↗</a><a class="pick-link" href="https://workspace.google.com" target="_blank" style="border-color:#fbbc0444;color:#fbbc04">Workspace ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--perplexity)">#3</span><div class="pick-dot" style="background:var(--perplexity)"></div><div class="pick-body"><span class="pick-name" style="color:var(--perplexity)">Perplexity</span><span class="pick-why">76/100 · cita fuentes verificadas en cada respuesta · menor riesgo de alucinaciones no detectadas</span><div class="pick-links"><a class="pick-link" href="https://www.perplexity.ai" target="_blank" style="border-color:#20c99744;color:#20c997">Perplexity ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">🏢</span>
+        <div><div class="reco-title">Empresa y productividad</div><div class="reco-subtitle">Office · workflows · integración · agentes</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:#60b0ff">#1</span><div class="pick-dot" style="background:var(--copilot)"></div><div class="pick-body"><span class="pick-name" style="color:#60b0ff">Copilot Wave 3</span><span class="pick-why">Nativo en Microsoft 365 · Agent 365 · Cowork (Claude) · 90% Fortune 500 · E7 suite integrada</span><div class="pick-links"><a class="pick-link" href="https://copilot.microsoft.com" target="_blank" style="border-color:#0078d444;color:#0078d4">Copilot ↗</a><a class="pick-link" href="https://www.microsoft.com/en-us/microsoft-365/copilot/copilot-for-work" target="_blank" style="border-color:#0078d444;color:#0078d4">M365 ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--gpt)">#2</span><div class="pick-dot" style="background:var(--gpt)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gpt)">ChatGPT Enterprise</span><span class="pick-why">GPT-5.4 + Excel + Codex Security · Skills reutilizables · datos no entrenados en Enterprise</span><div class="pick-links"><a class="pick-link" href="https://chatgpt.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">ChatGPT ↗</a><a class="pick-link" href="https://openai.com/enterprise" target="_blank" style="border-color:#74c69d44;color:#74c69d">Enterprise ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--nova)">#3 AWS</span><div class="pick-dot" style="background:var(--nova)"></div><div class="pick-body"><span class="pick-name" style="color:var(--nova)">Amazon Nova 2</span><span class="pick-why">Nativo en AWS Bedrock · Nova Act · Nova Forge fine-tuning · τ²-Bench 93% · ideal si infraestructura es AWS</span><div class="pick-links"><a class="pick-link" href="https://aws.amazon.com/bedrock/nova/" target="_blank" style="border-color:#ff990044;color:#ff9900">AWS Bedrock ↗</a><a class="pick-link" href="https://nova.amazon.com" target="_blank" style="border-color:#ff990044;color:#ff9900">Nova Portal ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Investigación -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">🔬</span>
+        <div><div class="reco-title">Investigación y análisis</div><div class="reco-subtitle">Papers · fuentes · fact-checking · búsqueda</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--perplexity)">#1</span><div class="pick-dot" style="background:var(--perplexity)"></div><div class="pick-body"><span class="pick-name" style="color:var(--perplexity)">Perplexity Pro</span><span class="pick-why">SimpleQA 93.9% · cita fuentes en tiempo real · 19 modelos integrados · BrowseComp líder</span><div class="pick-links"><a class="pick-link" href="https://www.perplexity.ai" target="_blank" style="border-color:#20c99744;color:#20c997">Perplexity ↗</a><a class="pick-link" href="https://www.perplexity.ai/pro" target="_blank" style="border-color:#20c99744;color:#20c997">Pro ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--notebooklm)">#2</span><div class="pick-dot" style="background:var(--notebooklm)"></div><div class="pick-body"><span class="pick-name" style="color:var(--notebooklm)">NotebookLM Plus</span><span class="pick-why">Analiza tus propios documentos con 1M ctx · cero riesgo de datos · Audio/Video de papers</span><div class="pick-links"><a class="pick-link" href="https://notebooklm.google.com" target="_blank" style="border-color:#fbbc0444;color:#fbbc04">NotebookLM ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--claude)">#3</span><div class="pick-dot" style="background:var(--claude)"></div><div class="pick-body"><span class="pick-name" style="color:var(--claude)">Claude Opus 4.6</span><span class="pick-why">Síntesis académica profunda · mejor para análisis de razonamiento jurídico y filosófico complejo</span><div class="pick-links"><a class="pick-link" href="https://claude.ai" target="_blank" style="border-color:#e8865a44;color:#e8865a">Claude.ai ↗</a><a class="pick-link" href="https://www.anthropic.com/api" target="_blank" style="border-color:#e8865a44;color:#e8865a">API ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Multilingüe -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">🌍</span>
+        <div><div class="reco-title">Multilingüe</div><div class="reco-subtitle">Traducción · idiomas locales · dialectos</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--qwen)">#1</span><div class="pick-dot" style="background:var(--qwen)"></div><div class="pick-body"><span class="pick-name" style="color:var(--qwen)">Qwen 3.5</span><span class="pick-why">201 idiomas nativos · mejor cobertura lingüística del planeta · top en lenguas asiáticas y africanas</span><div class="pick-links"><a class="pick-link" href="https://qwenlm.github.io" target="_blank" style="border-color:#f06a8a44;color:#f06a8a">Qwen Chat ↗</a><a class="pick-link" href="https://huggingface.co/Qwen" target="_blank" style="border-color:#f06a8a44;color:#f06a8a">HuggingFace ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--mistral)">#2 🇪🇺</span><div class="pick-dot" style="background:var(--mistral)"></div><div class="pick-body"><span class="pick-name" style="color:var(--mistral)">Mistral Large 3</span><span class="pick-why">Supera a DeepSeek y Kimi en multilingual benchmark · mejor para idiomas europeos y contextos GDPR</span><div class="pick-links"><a class="pick-link" href="https://chat.mistral.ai" target="_blank" style="border-color:#f59e0b44;color:#f59e0b">Le Chat ↗</a><a class="pick-link" href="https://mistral.ai/api" target="_blank" style="border-color:#f59e0b44;color:#f59e0b">API ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--gemini)">#3</span><div class="pick-dot" style="background:var(--gemini)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gemini)">Gemini 3.1 Pro</span><span class="pick-why">Hindi/Bengali/Gujarati/Tamil añadidos · mejor opción propietaria para idiomas del sur de Asia</span><div class="pick-links"><a class="pick-link" href="https://gemini.google.com" target="_blank" style="border-color:#6ea8fe44;color:#6ea8fe">Gemini ↗</a><a class="pick-link" href="https://aistudio.google.com" target="_blank" style="border-color:#6ea8fe44;color:#6ea8fe">AI Studio ↗</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- Agentes autónomos -->
+    <div class="reco-card">
+      <div class="reco-header">
+        <span class="reco-icon">🤖</span>
+        <div><div class="reco-title">Agentes autónomos</div><div class="reco-subtitle">Automatización · browser · computer use</div></div>
+      </div>
+      <div class="reco-picks">
+        <div class="pick"><span class="pick-rank" style="color:var(--gpt)">#1</span><div class="pick-dot" style="background:var(--gpt)"></div><div class="pick-body"><span class="pick-name" style="color:var(--gpt)">ChatGPT GPT-5.4</span><span class="pick-why">OSWorld 75% (supera humanos) · Computer Use nativo · Codex Security agente · Skills reutilizables</span><div class="pick-links"><a class="pick-link" href="https://chatgpt.com" target="_blank" style="border-color:#74c69d44;color:#74c69d">ChatGPT ↗</a><a class="pick-link" href="https://platform.openai.com/docs/api-reference" target="_blank" style="border-color:#74c69d44;color:#74c69d">API ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--kimi)">#2</span><div class="pick-dot" style="background:var(--kimi)"></div><div class="pick-body"><span class="pick-name" style="color:var(--kimi)">Kimi K2.5</span><span class="pick-why">100 agentes en paralelo · tool use agentic-reasoning top · 1T MoE · mejor para orquestación masiva</span><div class="pick-links"><a class="pick-link" href="https://kimi.moonshot.cn" target="_blank" style="border-color:#ff6b9d44;color:#ff6b9d">Kimi Chat ↗</a><a class="pick-link" href="https://platform.moonshot.cn" target="_blank" style="border-color:#ff6b9d44;color:#ff6b9d">API ↗</a></div></div></div>
+        <div class="pick"><span class="pick-rank" style="color:var(--nova)">#3 AWS</span><div class="pick-dot" style="background:var(--nova)"></div><div class="pick-body"><span class="pick-name" style="color:var(--nova)">Amazon Nova 2</span><span class="pick-why">Nova Act: agente de browser nativo · τ²-Bench 93% · ideal para automatización en ecosistema AWS</span><div class="pick-links"><a class="pick-link" href="https://aws.amazon.com/bedrock/nova/" target="_blank" style="border-color:#ff990044;color:#ff9900">AWS Bedrock ↗</a><a class="pick-link" href="https://nova.amazon.com" target="_blank" style="border-color:#ff990044;color:#ff9900">Nova Portal ↗</a></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- SOURCES -->
 <div class="sources-section">
-  <div class="panel-label">Fuentes · 17 modelos · 10 marzo 2026</div>
+  <div class="panel-label">Fuentes · 19 modelos · 24 marzo 2026</div>
   <div class="src-grid">
-    <div class="src-item"><span class="src-lbl">Benchmarks</span><span class="src-name">LMSYS Chatbot Arena</span><a class="src-link" href="https://chat.lmsys.org" target="_blank">chat.lmsys.org</a></div>
-    <div class="src-item"><span class="src-lbl">LLM updates</span><span class="src-name">LLM Stats · Mar 2026</span><a class="src-link" href="https://llm-stats.com/llm-updates" target="_blank">llm-stats.com/llm-updates</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:var(--nova)">Amazon Nova 2 🆕 · τ²-Bench</span><span class="src-name">Amazon Science / AWS Blog</span><a class="src-link" href="https://www.amazon.science/publications/amazon-nova-2-multimodal-reasoning-and-generation-models" target="_blank">amazon.science/nova-2</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:#60b0ff">Copilot Wave 3 · Agent 365</span><span class="src-name">Microsoft Blog · 9 Mar 2026</span><a class="src-link" href="https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/" target="_blank">blogs.microsoft.com/wave3</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:#c4b5fd">AMI Labs $1.03B · LeCun</span><span class="src-name">TechCrunch · 10 Mar 2026</span><a class="src-link" href="https://techcrunch.com/2026/03/09/yann-lecuns-ami-labs-raises-1-03-billion-to-build-world-models/" target="_blank">techcrunch.com/ami-labs</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:var(--gpt)">GPT-5.4 + Excel + Codex Sec</span><span class="src-name">OpenAI / VentureBeat · Mar 2026</span><a class="src-link" href="https://venturebeat.com/technology/openai-launches-gpt-5-4-with-native-computer-use-mode-financial-plugins-for" target="_blank">venturebeat.com/gpt-5-4</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:var(--claude)">Claude ban federal · App Store</span><span class="src-name">NBC / CNBC · Feb–Mar 2026</span><a class="src-link" href="https://www.nbcnews.com/tech/tech-news/trump-bans-anthropic-government-use-rcna261055" target="_blank">nbcnews.com/anthropic-ban</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:var(--gemini)">Gemini 3.1 Pro + Flash-Lite</span><span class="src-name">Google DeepMind · Mar 2026</span><a class="src-link" href="https://deepmind.google/models/model-cards/gemini-3-1-pro/" target="_blank">deepmind.google/gemini-3-1</a></div>
+    <div class="src-item"><span class="src-lbl">Benchmarks generales</span><span class="src-name">LMSYS Chatbot Arena</span><a class="src-link" href="https://chat.lmsys.org" target="_blank">chat.lmsys.org</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:#a78bfa">Cursor Composer 2 🆕 · 19 Mar</span><span class="src-name">cursor.com/blog · VentureBeat · NewStack</span><a class="src-link" href="https://cursor.com/blog/composer-2" target="_blank">cursor.com/blog/composer-2</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:#fb7185">Xiaomi MiMo-V2-Pro 🆕 · 21 Mar</span><span class="src-name">devFlokers / Reuters / TechCrunch</span><a class="src-link" href="https://www.devflokers.com/blog/new-ai-model-releases-open-source-projects-march-18-19-2026" target="_blank">devflokers.com/mimo-v2-pro</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--claude)">Claude raid Venezuela · 1M GA · Haiku 3</span><span class="src-name">WSJ · Anthropic API Docs · 24 Mar</span><a class="src-link" href="https://platform.claude.com/docs/en/release-notes/overview" target="_blank">platform.claude.com/release-notes</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--gpt)">GPT-5.4 + Excel + Codex Sec</span><span class="src-name">OpenAI Releasebot · Mar 2026</span><a class="src-link" href="https://releasebot.io/updates/openai" target="_blank">releasebot.io/openai</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--nova)">Amazon Nova 2 · τ²-Bench</span><span class="src-name">Amazon Science</span><a class="src-link" href="https://www.amazon.science/publications/amazon-nova-2-multimodal-reasoning-and-generation-models" target="_blank">amazon.science/nova-2</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:#60b0ff">Copilot Wave 3 · Agent 365</span><span class="src-name">Microsoft Blog · 9 Mar</span><a class="src-link" href="https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/" target="_blank">blogs.microsoft.com/wave3</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--claude)">Claude ban federal · App Store</span><span class="src-name">NBC News / CNBC</span><a class="src-link" href="https://www.nbcnews.com/tech/tech-news/trump-bans-anthropic-government-use-rcna261055" target="_blank">nbcnews.com/anthropic-ban</a></div>
     <div class="src-item"><span class="src-lbl" style="color:var(--deepseek)">DeepSeek V4 · MIT</span><span class="src-name">Reuters / AI2Work · Mar 2026</span><a class="src-link" href="https://ai2.work/blog/deepseek-v4-china-s-trillion-parameter-multimodal-ai-rival-in-2026" target="_blank">ai2.work/deepseek-v4</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:var(--mistral)">Mistral Large 3 · Apache 2.0</span><span class="src-name">Mistral AI · Dic 2025</span><a class="src-link" href="https://mistral.ai/news/mistral-3" target="_blank">mistral.ai/news/mistral-3</a></div>
     <div class="src-item"><span class="src-lbl" style="color:var(--minimax)">MiniMax M2.5 · MIT</span><span class="src-name">OpenHands · 12 Feb 2026</span><a class="src-link" href="https://openhands.dev/blog/minimax-m2-5-open-weights-models-catch-up-to-claude" target="_blank">openhands.dev/minimax-m2-5</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:var(--seed)">ByteDance Seed 2.0</span><span class="src-name">ByteDance Seed · 14 Feb 2026</span><a class="src-link" href="https://seed.bytedance.com/en/blog/seed2-0" target="_blank">seed.bytedance.com/seed2-0</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:var(--kimi)">Kimi K2.5 MIT</span><span class="src-name">Moonshot AI · 27 Ene 2026</span><a class="src-link" href="https://moonshotai.github.io/Kimi-K2/" target="_blank">moonshotai.github.io/Kimi-K2</a></div>
-    <div class="src-item"><span class="src-lbl" style="color:var(--grok)">Grok 4.20 · redes DoD</span><span class="src-name">xAI · Feb–Mar 2026</span><a class="src-link" href="https://x.ai/news" target="_blank">x.ai/news</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--seed)">ByteDance Seed 2.0</span><span class="src-name">ByteDance Seed · 14 Feb</span><a class="src-link" href="https://seed.bytedance.com/en/blog/seed2-0" target="_blank">seed.bytedance.com/seed2-0</a></div>
+    <div class="src-item"><span class="src-lbl" style="color:var(--mistral)">Mistral Large 3 · Apache 2.0</span><span class="src-name">Mistral AI · Dic 2025</span><a class="src-link" href="https://mistral.ai/news/mistral-3" target="_blank">mistral.ai/news/mistral-3</a></div>
+    <div class="src-item"><span class="src-lbl">LLM updates diario</span><span class="src-name">LLM Stats · Mar 2026</span><a class="src-link" href="https://llm-stats.com/llm-updates" target="_blank">llm-stats.com/llm-updates</a></div>
+    <div class="src-item"><span class="src-lbl">March AI avalanche</span><span class="src-name">Sci-Tech Today · 10 Mar</span><a class="src-link" href="https://www.sci-tech-today.com/news/march-2026-ai-models-avalanche/" target="_blank">sci-tech-today.com/march-2026</a></div>
     <div class="src-item"><span class="src-lbl">Comparativa general</span><span class="src-name">Artificial Analysis · 2026</span><a class="src-link" href="https://artificialanalysis.ai" target="_blank">artificialanalysis.ai</a></div>
-    <div class="src-item"><span class="src-lbl">Open-source ranking</span><span class="src-name">Pluralsight / Design For Online</span><a class="src-link" href="https://designforonline.com/the-best-ai-models-so-far-in-2026/" target="_blank">designforonline.com/best-2026</a></div>
   </div>
 
   <div class="disc">
-    <strong>📅 Cobertura — 10 marzo 2026 · 17 modelos:</strong><br><br>
-    <span style="color:var(--claude)">▶ Claude</span> — <strong>Sonnet 4.6 / Opus 4.6 · #1 App Store EE.UU.</strong> · Ban federal 27 Feb (rehusó uso en armas autónomas y vigilancia masiva) · Impugna en cortes · +60% usuarios · Distillation denuncia: DeepSeek 16M exchanges, Kimi 3.4M · Claude 5 próximo · Cowork integration con Microsoft Copilot<br>
-    <span style="color:var(--gpt)">▶ ChatGPT</span> — <strong>GPT-5.4 (5 Mar) + ChatGPT for Excel beta + Codex Security (10 Mar)</strong> · GDPval 83% · IB 87.3% · OSWorld 75% (supera humanos) · BigLaw 91% · 1M ctx · 47% menos tokens · 33% menos alucinaciones vs GPT-5.2 · Codex Security: agente de app-sec preview · ChatGPT for Excel: build/update modelos en workbooks nativo · Skills beta: workflows reutilizables de equipo · $110B funding · Deal Pentágono 27 Feb<br>
-    <span style="color:var(--gemini)">▶ Gemini</span> — <strong>Gemini 3.1 Pro + Flash-Lite Preview (3 Mar)</strong> · Flash-Lite: 380 tok/s · $0.25/M · ARC-AGI-2: 77.1% · Canvas US · Samsung 800M · Apple iOS 26.4 · Gemini 3.5 en roadmap<br>
-    <span style="color:var(--meta)">▶ Llama</span> — <strong>Llama 4 Scout / Maverick (2025)</strong> · Deals Google TPUs + AMD · Llama 5 anticipado 2026 · superado en coding por nuevos modelos open-source chinos<br>
-    <span style="color:var(--deepseek)">▶ DeepSeek</span> — <strong>V4 · 1T params · MIT · 50× más barato</strong> · 32B activos · multimodal nativo · $0.10–$0.30/M · Huawei+Cambricon · Distillation attack: 16M exchanges a Claude/OpenAI<br>
-    <span style="color:var(--qwen)">▶ Qwen</span> — <strong>Qwen 3.5 / Qwen3-Max-Thinking · Apache 2.0</strong> · 201 idiomas · 1M ctx · 8.85M descargas · Qwen 4 en roadmap<br>
-    <span style="color:var(--ernie)">▶ Ernie</span> — <strong>Ernie Bot 5.0 (2025)</strong> · Sin novedades · Baidu apuesta más a cloud · perdiendo cuota<br>
-    <span style="color:var(--glm)">▶ GLM-5</span> — <strong>GLM-5 744B MoE MIT (13 Feb)</strong> · SWE-bench open #1: 77.8% · Alucinaciones 90%→34% (Slime)<br>
-    <span style="color:var(--kimi)">▶ Kimi K2.5</span> — <strong>Kimi K2.5 / K2 Thinking MIT (27 ene)</strong> · 1T MoE · 100 agentes · 50.2% HLE · Distillation: 3.4M exchanges a Claude<br>
-    <span style="color:var(--grok)">▶ Grok</span> — <strong>Grok 4.20 · aprobado redes clasificadas Pentágono</strong> · Reemplaza Claude en DoD · Grok 5: 6T params Q1-Q2 2026<br>
-    <span style="color:var(--perplexity)">▶ Perplexity</span> — <strong>Sonar Pro + Computer (25 Feb)</strong> · 19 modelos · Elo 1136 · 780M+ queries/mes<br>
-    <span style="color:var(--notebooklm)">▶ NotebookLM</span> — <strong>NotebookLM Plus Gemini 3.1 Pro (26 Feb)</strong> · 1M ctx · datos NO entrenados · VPC-SC<br>
-    <span style="color:var(--mistral)">▶ Mistral</span> — <strong>Mistral Large 3 · 675B MoE · Apache 2.0 🇫🇷 (Dic 2025)</strong> · 41B activos · 256K ctx · #2 open-source LMArena · 92% GPT-5.2 al 15% del precio<br>
-    <span style="color:var(--minimax)">▶ MiniMax M2.5</span> — <strong>230B MoE · 10B activos · MIT (12 Feb)</strong> · SWE 80.2% · BFCL #1 · #4 OpenHands global · 20× más barato que modelos propietarios<br>
-    <span style="color:var(--seed)">▶ Seed 2.0</span> — <strong>ByteDance · familia Pro/Lite/Mini/Code (14 Feb)</strong> · AIME 98.3% · video 1h · Doubao 200M usuarios · 10× más barato que occidentales<br>
-    <span style="color:#60b0ff">▶ Copilot</span> — <strong>Microsoft 365 Copilot Wave 3 (9 Mar) · GPT-5.3 Instant + Claude nativo</strong> · Primer Copilot verdaderamente agéntico · Agent 365 GA 1 May ($15/user) · Cowork con Anthropic Claude: agente de Office autónomo · E7 "Frontier Suite" $99/user · Work IQ: inteligencia organizacional · 90% Fortune 500 · 160% crecimiento YoY en seats<br>
-    <span style="color:#ffb84d">▶ Nova 2</span> — <strong>Amazon Nova 2 Pro · 1M ctx · $1.25/M · AWS Bedrock (Dic 2025) 🆕</strong> · τ²-Bench Telecom 93% · IFBench 80% (#1) · Familia 4 modelos: Pro/Lite/Omni/Sonic · Nova Act: agente de browser · Nova Forge fine-tuning · extended thinking configurable · 90% Fortune 500 en AWS · no tiene pesos públicos<br><br>
-    🔥 <strong>HOY 10 Mar — LeCun AMI Labs $1.03B:</strong> Mayor ronda seed europea de la historia · Yann LeCun cofundador · $3.5B pre-money · World models basados en JEPA (alternativa a LLMs) · Inversores: Nvidia, Bezos, Temasek · 4 hubs: París, NY, Montreal, Singapur · Open-source como principio · Año 1 = investigación pura<br><br>
-    🔜 <strong>Próximos:</strong> DeepSeek V4 Lite · Grok 5 (Q1-Q2) · Gemini 3.5 · Claude 5 · GLM-5.5 · Kimi K3 · Llama 5 · Mistral Large 3 Reasoning · Qwen 4 · Copilot Agent 365 GA (1 May) · AMI Labs world models<br>
-    📊 <strong>Tendencia open-source 2026:</strong> Brecha vs propietario ~3 meses (Epoch AI) · MiniMax M2.5 primer open al nivel de Claude Opus en coding · Seed 2.0 supera GPT-5.2 en AIME25 · DeepSeek V4 50× más barato · Silicon Valley construye sobre modelos chinos open-source<br><br>
-    ⚠ Puntajes son estimaciones comparativas basadas en benchmarks públicos, NO cifras oficiales.
+    <strong>📅 Cobertura — 24 marzo 2026 · 19 modelos:</strong><br><br>
+    🔥 <strong>HOY 24 Mar — Consolidación de benchmarks + Claude en operación Venezuela + Kimi en edge:</strong> WSJ confirma que el ejército de EE.UU. usó Claude durante el raid de 2026 en Venezuela que capturó a Maduro — a pesar del ban federal vigente, Claude operó en sistemas clasificados de Palantir durante la operación (83 muertos, 2 civiles, captura de Maduro) · Anthropic API: 1M ctx ya en GA para Opus 4.6 y Sonnet 4.6 sin beta header, límite imágenes/PDFs subido a 600/request, automatic caching lanzado, Haiku 3 deprecado (retiro 19 Abr 2026) · Kimi K2.5 disponible HOY en Cloudflare Workers AI: frontier-level en edge computing, 256K ctx, tool calling, sin servidores propios · Nudge Security lanza hoy herramientas anti-shadow-AI: 80% de organizaciones ya tienen riesgos de agentes con exceso de acceso a datos · Benchmarks coding confirmados definitivamente: SWE-bench verified — Opus 4.6: 80.8% · Gemini 3.1 Pro: 80.6% · GPT-5.4: ~80% · MiniMax M2.5: 80.2% — brecha entre top 6 modelos solo 1.3 puntos · GPQA Diamond confirmado: Gemini 3.1 Pro 94.3% (#1) · Gemini LiveCodeBench Pro Elo: 2887 (#1) · GDPval-AA: Sonnet 4.6 Elo 1633 (#1 global en tareas profesionales reales) · Terminal-Bench: GPT-5.4 75.1% (#1) · CERAWeek 2026 hoy en Houston: Amazon, Google, Microsoft, NVIDIA y Meta debatiendo IA y centros de datos de energía "Hunter Alpha" era Xiaomi MiMo-V2-Pro, NO DeepSeek — construido por Luo Fuli (ex-investigador de DeepSeek) y el equipo MiMo de Xiaomi AI · 1T params · procesó más de 1 trillón de tokens en testing anónimo · lideró OpenRouter daily usage charts múltiples días · acciones Xiaomi Hong Kong +5.8% al anuncio · API gratis para integraciones OpenClaw · GPT-5.4 Mini llega HOY a todos los tiers de ChatGPT: Free/Go via "Thinking", Plus/Pro como fallback de rate limit, Enterprise con Auto-routing · GPT-5 Thinking mini se retira en 30 días · OpenClaw cruzó 210,000 estrellas en GitHub (de 9K a 60K en días en enero) · ClawHub: 5,700+ skills de comunidad · NemoClaw (NVIDIA TypeScript plugin) en trending con 4,200 estrellas · obra/superpowers: framework agéntico shell-based #1 trending con 92,100 estrellas · 4.3M repositorios AI en GitHub (+178% YoY) · Gemini llega a Workspace beta (Docs/Sheets/Slides/Drive) · Trump Marco Nacional IA publicado 20 Mar · Q1 2026: ritmo de un modelo frontier nuevo cada ~72 horas en promedio Trump publicó hoy el Marco Nacional de IA (pre-empta regulación estatal, protecciones niños/comunidades/SMBs, busca legislación uniforme nacional) · OpenAI + Google + Microsoft presentaron filings en corte respaldando a Anthropic contra el ban del DoD — fenómeno histórico: los 3 principales competidores apoyan al cuarto · GPT-5.4 Mini (17 Mar): $0.75/M input · $4.50/M output · 400K ctx · 2× más rápido que GPT-5 mini · Free/Go via "Thinking" · GPQA Diamond 88.01% · SWE-Bench Pro ~ GPT-5.4 · GPT-5.4 Nano (API-only): $0.20/M · 200 tok/s · 12× más barato que flagship · clasificación / subagentes / extracción · Gemini llega a Workspace HOY en beta (Docs/Sheets/Slides/Drive, Ultra y Pro, inglés global) · Meta considera licenciar Gemini de Google como stopgap mientras Avocado (mayo 2026) llega — primera vez que Meta evalúa usar modelo rival · GTC 2026 cierra: GR00T N1.7 (humanoid robotics foundation model open) · DGX Station GB300 (748GB, 20 petaflops, hasta 1T params en desktop) · Basecamp Research 100× expansión genómica con NVIDIA Parabricks (cuadrones de DNA en &lt;2 años)<br><br>
+    <span style="color:var(--claude)">▶ Claude</span> — <strong>Sonnet 4.6 / Opus 4.6 · 1M ctx GA · SWE Opus 80.8% · GDPval-AA Sonnet #1 (Elo 1633)</strong> · Haiku 3 deprecado (retiro 19 Abr) · usado en raid Venezuela (WSJ) · 18 intel agencies · Maven · ban DoD impugnado · $19B rev · 4% commits GitHub<br>
+    <span style="color:var(--gpt)">▶ ChatGPT</span> — <strong>GPT-5.4 + Mini + Nano · Terminal-Bench 75.1% (#1) · SWE-bench Pro 57.7% (#1) · $25B rev</strong> · GPQA 88.01% · Nano $0.20/M · Sora + write actions · IPO 2026 · $110B funding<br>
+    <span style="color:var(--gemini)">▶ Gemini</span> — <strong>Gemini 3.1 Pro + Flash-Lite + Workspace beta HOY (Docs/Sheets/Slides/Drive)</strong> · ARC-AGI-2 77.1% · Canvas US · Samsung 800M · iOS 26.4 Siri+Gemini 1.2T · Meta evalúa licenciar · respaldó a Anthropic en cortes<br>
+    <span style="color:var(--meta)">▶ Llama</span> — <strong>Llama 4 Scout/Maverick · Avocado mayo 2026 · Meta considera licenciar Gemini</strong> · Primera vez que Meta evalúa modelo de un rival como stopgap · corte 16K empleados · \$600B AI infra<br>
+    <span style="color:#a78bfa">▶ Composer 2</span> — <strong>Cursor/Anysphere · fine-tune Kimi K2.5 · 19 Mar 2026 🆕 · Terminal-Bench 61.7</strong> · SWE-bench Multilingual 73.7 · supera Claude Opus 4.6 (58.0) en Terminal-Bench pero por debajo de GPT-5.4 (75.1) · self-summarization para tareas largas · 200K ctx · $0.50/$2.50/M (Standard) · $1.50/$7.50/M (Fast, default) · 86% más barato que Composer 1.5 · JetBrains ACP integrado · 1M+ usuarios diarios en Cursor · Anysphere valuado $29.3B · basado en Kimi K2.5 (Moonshot AI, MIT)<br>
+    <span style="color:var(--mimo)">▶ MiMo</span> — <strong>Xiaomi MiMo-V2-Pro · 1T params · "Hunter Alpha" revelado HOY 🆕</strong> · Construido por Luo Fuli (ex-DeepSeek) y equipo MiMo de Xiaomi AI · testing anónimo: +1T tokens procesados, OpenRouter #1 múltiples días · Xiaomi HKG +5.8% · API gratis para OpenClaw · SWE-bench pendiente publicación oficial · conocimiento cutoff mayo 2025 · DeepSeek-lineage architecture · sin pesos públicos aún · primera incursión seria de Xiaomi en frontier LLM<br>
+    <span style="color:var(--deepseek)">▶ DeepSeek</span> — <strong>V4 confirmado · "Hunter Alpha" 1T en OpenRouter (Reuters, 11 Mar) · MIT</strong> · 50× más barato · NVIDIA reinicia H200 para China (ventaja indirecta) · distillation attack denunciado<br>
+    <span style="color:var(--qwen)">▶ Qwen</span> — <strong>Qwen 3.5 / Max-Thinking · Apache 2.0 · 201 idiomas</strong> · Qwen 3.5 Small 9B = GPT-OSS-120B en GPQA · 2B corre en iPhone<br>
+    <span style="color:var(--ernie)">▶ Ernie</span> — <strong>Ernie Bot 5.0</strong> · Sin novedades · perdiendo cuota ante DeepSeek<br>
+    <span style="color:var(--glm)">▶ GLM-5</span> — <strong>744B MoE MIT · SWE #1 open 77.8%</strong> · Alucinaciones 90%→34% · GLM-5.5 en roadmap<br>
+    <span style="color:var(--kimi)">▶ Kimi K2.5</span> — <strong>K2.5 MIT · 1T MoE · 100 agentes · 50.2% HLE</strong> · distillation: 3.4M exchanges<br>
+    <span style="color:var(--grok)">▶ Grok</span> — <strong>Grok 4.20 · aprobado redes clasificadas DoD</strong> · UK ICO investiga deepfakes · Grok 5: 6T Q1-Q2<br>
+    <span style="color:var(--perplexity)">▶ Perplexity</span> — <strong>Sonar Pro + Computer · Elo 1136</strong> · 780M+ queries/mes · SimpleQA 93.9%<br>
+    <span style="color:var(--notebooklm)">▶ NotebookLM</span> — <strong>Plus Gemini 3.1 Pro · 1M ctx · datos NO entrenados</strong> · VPC-SC Enterprise<br>
+    <span style="color:var(--mistral)">▶ Mistral</span> — <strong>Large 3 · 675B MoE · Apache 2.0 🇫🇷</strong> · #2 OSS LMArena · 92% GPT-5.2 al 15% precio<br>
+    <span style="color:var(--minimax)">▶ MiniMax M2.5</span> — <strong>230B MoE · MIT · SWE 80.2%</strong> · BFCL #1 · 20× más barato<br>
+    <span style="color:var(--seed)">▶ Seed 2.0</span> — <strong>Familia Pro/Lite/Mini/Code · AIME 98.3%</strong> · VideoMME 89.5% · Doubao 200M usuarios<br>
+    <span style="color:#60b0ff">▶ Copilot</span> — <strong>Wave 3 · GPT-5.3 + Claude · Agent 365 (GA 1 May)</strong> · Cowork · E7 $99/user · 90% Fortune 500<br>
+    <span style="color:#ffb84d">▶ Nova 2</span> — <strong>Pro · 1M ctx · $1.25/M · τ²-Bench 93%</strong> · Nova Act · Bedrock · 90% Fortune 500 AWS<br><br>
+    🔜 <strong>Próximos:</strong> Llama 4 Avocado (mayo) · Grok 5 (Q1-Q2) · Gemini 3.5 · Claude 5 · GLM-5.5 · Kimi K3 · Llama 5 · Mistral Reasoning · Qwen 4 · Agent 365 GA 1 May · Apple iOS 26.4 Siri+Gemini 1.2T (este mes) · GPT-5.4 Mini GA · Hunter Alpha/DeepSeek V4 Lite confirmación pendiente<br>
+    ⚔️ <strong>Geopolítica 24 Mar:</strong> WSJ: Claude usado en raid Venezuela (captura Maduro, 83 muertos) a pesar del ban federal — Claude en Palantir sistemas clasificados · Anthropic demanda DoD activa (ban "supply chain risk") · 3 competidores (OpenAI+Google+MS) presentaron filings apoyando a Anthropic · NVIDIA H200 China bajo licencias · Haiku 3 deprecado (19 Abr) · Kimi K2.5 en Cloudflare Workers: primera vez que un modelo MIT corre en edge global · CERAWeek Houston: Amazon/Google/MS/NVIDIA/Meta debaten IA + energía · 80% empresas con shadow AI agents sin control (Nudge Security)<br><br>
+    ⚠ Puntajes son estimaciones comparativas basadas en benchmarks públicos, NO cifras oficiales. Las recomendaciones reflejan el criterio del autor (JABF) a la fecha indicada.
   </div>
 </div>
 
@@ -251,97 +449,33 @@ header{text-align:center;margin-bottom:28px}
     </div>
   </div>
   <div class="vdiv"></div>
-  <span class="foot-date">📅 10 Mar 2026</span>
+  <span class="foot-date">📅 24 Mar 2026</span>
 </div>
 
 </div>
 <script>
 const IAs = [
-  // 0 Claude
-  { name:'Claude', color:'#e8865a', fill:'rgba(232,134,90,0.15)',
-    scores:[95,91,98,95,96,82,81,70],
-    version:'Sonnet 4.6 / Opus 4.6 · #1 App Store EE.UU.',
-    period:'Anthropic · Ban federal 27 Feb · +60% usuarios · Claude 5 próximo' },
-  // 1 ChatGPT
-  { name:'ChatGPT', color:'#74c69d', fill:'rgba(116,198,157,0.15)',
-    scores:[96,89,79,99,92,94,93,63],
-    version:'GPT-5.4 (5 Mar) + Excel + Codex Security (10 Mar)',
-    period:'OpenAI · GDPval 83% · OSWorld 75% · 1M ctx · $110B funding' },
-  // 2 Gemini
-  { name:'Gemini', color:'#6ea8fe', fill:'rgba(110,168,254,0.15)',
-    scores:[97,84,78,91,95,98,93,83],
-    version:'Gemini 3.1 Pro + Flash-Lite Preview (3 Mar)',
-    period:'Google · Flash-Lite 380 tok/s · ARC-AGI-2: 77.1% · Canvas US' },
-  // 3 Llama
-  { name:'Llama', color:'#d6a4f7', fill:'rgba(214,164,247,0.15)',
-    scores:[83,77,71,85,83,71,89,96],
-    version:'Llama 4 Scout / Maverick',
-    period:'Meta · Deals Google TPUs + AMD · Llama 5 anticipado 2026' },
-  // 4 DeepSeek
-  { name:'DeepSeek', color:'#f7c948', fill:'rgba(247,201,72,0.13)',
-    scores:[93,76,52,96,93,82,94,93],
-    version:'V4 · 1T params · MIT · 50× más barato',
-    period:'DeepSeek AI · Mar 2026 · Multimodal · Huawei+Cambricon' },
-  // 5 Qwen
-  { name:'Qwen', color:'#f06a8a', fill:'rgba(240,106,138,0.13)',
-    scores:[89,82,62,92,92,92,91,89],
-    version:'Qwen 3.5 / Qwen3-Max-Thinking · Apache 2.0',
-    period:'Alibaba · 201 idiomas · 1M ctx · 8.85M descargas' },
-  // 6 Ernie
-  { name:'Ernie', color:'#4ecdc4', fill:'rgba(78,205,196,0.13)',
-    scores:[83,75,58,84,81,84,86,81],
-    version:'Ernie Bot 5.0',
-    period:'Baidu · 2025 · Sin novedades · perdiendo cuota' },
-  // 7 GLM-5
-  { name:'GLM-5', color:'#22d3ee', fill:'rgba(34,211,238,0.13)',
-    scores:[90,82,60,91,90,84,78,93],
-    version:'GLM-5 · 744B MoE · MIT',
-    period:'Zhipu · 13 Feb 2026 · SWE #1 open: 77.8% · Slime' },
-  // 8 Kimi
-  { name:'Kimi K2.5', color:'#ff6b9d', fill:'rgba(255,107,157,0.13)',
-    scores:[85,80,55,93,90,89,91,90],
-    version:'Kimi K2.5 / K2 Thinking · MIT',
-    period:'Moonshot AI · 27 Ene · 100 agentes · distillation 3.4M' },
-  // 9 Grok
-  { name:'Grok', color:'#a78bfa', fill:'rgba(167,139,250,0.13)',
-    scores:[91,83,58,90,88,88,95,72],
-    version:'Grok 4.20 · aprobado redes clasificadas DoD',
-    period:'xAI · Reemplaza Claude Pentágono · Grok 5: 6T params' },
-  // 10 Perplexity
-  { name:'Perplexity', color:'#20c997', fill:'rgba(32,201,151,0.13)',
-    scores:[88,78,76,80,87,85,97,78],
-    version:'Sonar Pro + Perplexity Computer',
-    period:'Perplexity AI · 25 Feb · Elo 1136 · 780M+ queries' },
-  // 11 NotebookLM
-  { name:'NotebookLM', color:'#fbbc04', fill:'rgba(251,188,4,0.13)',
-    scores:[82,86,84,60,97,88,82,85],
-    version:'NotebookLM Plus · Gemini 3.1 Pro',
-    period:'Google Labs · 26 Feb 2026 · 1M ctx · datos NO entrenados' },
-  // 12 Mistral
-  { name:'Mistral', color:'#f59e0b', fill:'rgba(245,158,11,0.13)',
-    scores:[88,80,74,89,82,79,86,95],
-    version:'Mistral Large 3 · 675B MoE · Apache 2.0 🇫🇷',
-    period:'Mistral AI · Dic 2025 · 41B activos · #2 OSS LMArena' },
-  // 13 MiniMax
-  { name:'MiniMax', color:'#38bdf8', fill:'rgba(56,189,248,0.13)',
-    scores:[87,74,55,97,82,68,92,95],
-    version:'M2.5 · 230B MoE · 10B activos · MIT (12 Feb)',
-    period:'MiniMax AI · SWE 80.2% · BFCL #1 · 20× más barato' },
-  // 14 Seed 2.0
-  { name:'Seed 2.0', color:'#a3e635', fill:'rgba(163,230,53,0.12)',
-    scores:[94,79,56,88,88,91,87,88],
-    version:'Seed 2.0 Pro · familia Pro/Lite/Mini/Code (14 Feb)',
-    period:'ByteDance · AIME 98.3% · Video 1h · Doubao 200M usuarios' },
-  // 15 Copilot
-  { name:'Copilot', color:'#0078d4', fill:'rgba(0,120,212,0.13)',
-    scores:[84,78,82,88,86,86,88,55],
-    version:'Microsoft 365 Copilot Wave 3 · GPT-5.3 + Claude',
-    period:'Microsoft · 9 Mar 2026 · Agent 365 · Cowork · E7 · Fortune 500 90%' },
-  // 16 Nova 2
-  { name:'Nova 2', color:'#ff9900', fill:'rgba(255,153,0,0.13)',
-    scores:[88,75,80,87,90,93,90,52],
-    version:'Amazon Nova 2 Pro · 1M ctx · $1.25/M · Bedrock 🆕',
-    period:'Amazon AWS · Dic 2025 · τ²-Bench 93% · Nova Act agent' }
+  { name:'Claude',     color:'#e8865a', fill:'rgba(232,134,90,0.15)',   scores:[95,91,98,95,97,82,81,70], version:'Sonnet 4.6 / Opus 4.6 · 1M ctx GA · SWE 80.8% · $19B rev',          period:'Anthropic · Instituto lanzado 11 Mar · 18 intel agencies · Maven · demanda DoD activa' },
+  { name:'ChatGPT',    color:'#74c69d', fill:'rgba(116,198,157,0.15)',  scores:[96,89,79,99,92,94,95,68], version:'GPT-5.4 + Mini ($0.75/M) + Nano ($0.20/M) · Free/Go tier',             period:'OpenAI · GDPval 83% · OSWorld 75% · 1M ctx · $110B funding' },
+  { name:'Gemini',     color:'#6ea8fe', fill:'rgba(110,168,254,0.15)',  scores:[98,84,78,91,95,98,93,83], version:'Gemini 3.1 Pro · SWE 80.6% · GPQA 94.3% · Razonamiento #1',    period:'Google · Flash-Lite 380 tok/s · ARC-AGI-2 77.1% · Canvas US · Meta evalúa como stopgap para Avocado' },
+  { name:'Llama',      color:'#d6a4f7', fill:'rgba(214,164,247,0.15)',  scores:[83,77,71,85,83,71,89,96], version:'Llama 4 Scout/Maverick · Avocado → mayo · Meta evalúa licenciar Gemini',               period:'Meta · considera licenciar Gemini como stopgap · Avocado mayo · corte 16K · \$600B infra' },
+  { name:'DeepSeek',   color:'#f7c948', fill:'rgba(247,201,72,0.13)',   scores:[93,76,52,96,93,82,94,93], version:'V4 confirmado · "Hunter Alpha" 1T en OpenRouter (11 Mar) · MIT',                 period:'DeepSeek AI · Hunter Alpha: especulado V4 testing silencioso · 50× más barato' },
+  { name:'Qwen',       color:'#f06a8a', fill:'rgba(240,106,138,0.13)',  scores:[89,82,62,92,92,92,91,89], version:'Qwen 3.5 / Max-Thinking · Apache 2.0 · 201 idiomas',   period:'Alibaba · 9B = GPT-OSS-120B · 2B corre en iPhone · Qwen 4 roadmap' },
+  { name:'Ernie',      color:'#4ecdc4', fill:'rgba(78,205,196,0.13)',   scores:[83,75,58,84,81,84,86,81], version:'Ernie Bot 5.0',                                         period:'Baidu · 2025 · Sin novedades · perdiendo cuota' },
+  { name:'GLM-5',      color:'#22d3ee', fill:'rgba(34,211,238,0.13)',   scores:[90,82,60,91,90,84,78,93], version:'GLM-5 · 744B MoE · MIT',                               period:'Zhipu · SWE #1 open: 77.8% · Alucinaciones 90%→34% · Slime' },
+  { name:'Kimi K2.5',  color:'#ff6b9d', fill:'rgba(255,107,157,0.13)',  scores:[85,80,55,93,90,89,91,92], version:'Kimi K2.5 / K2 Thinking · MIT · Cloudflare Workers AI (24 Mar)',                       period:'Moonshot AI · 100 agentes · HLE 50.2% · distillation 3.4M' },
+  { name:'Grok',       color:'#a78bfa', fill:'rgba(167,139,250,0.13)',  scores:[91,83,58,90,88,88,95,72], version:'Grok 4.20 · aprobado redes clasificadas DoD',          period:'xAI · UK ICO investiga · Grok 5: 6T params Q1-Q2 2026' },
+  { name:'Perplexity', color:'#20c997', fill:'rgba(32,201,151,0.13)',   scores:[88,78,76,80,87,85,97,78], version:'Sonar Pro + Perplexity Computer',                      period:'Perplexity AI · Elo 1136 · SimpleQA 93.9% · 780M+ queries' },
+  { name:'NotebookLM', color:'#fbbc04', fill:'rgba(251,188,4,0.13)',    scores:[82,86,84,60,97,88,82,85], version:'NotebookLM Plus · Gemini 3.1 Pro',                     period:'Google Labs · 1M ctx · datos NO entrenados · VPC-SC' },
+  { name:'Mistral',    color:'#f59e0b', fill:'rgba(245,158,11,0.13)',   scores:[88,80,74,89,82,79,86,95], version:'Mistral Large 3 · 675B MoE · Apache 2.0 🇫🇷',          period:'Mistral AI · Dic 2025 · #2 OSS LMArena · 92% GPT-5.2 precio 15%' },
+  { name:'MiniMax',    color:'#38bdf8', fill:'rgba(56,189,248,0.13)',   scores:[87,74,55,97,82,68,92,95], version:'M2.5 · 230B MoE · 10B activos · MIT',                  period:'MiniMax AI · SWE 80.2% · BFCL #1 · 20× más barato' },
+  { name:'Seed 2.0',   color:'#a3e635', fill:'rgba(163,230,53,0.12)',   scores:[94,79,56,88,88,91,87,88], version:'Seed 2.0 Pro · familia Pro/Lite/Mini/Code',            period:'ByteDance · AIME 98.3% · VideoMME 89.5% · Doubao 200M usuarios' },
+  { name:'Copilot',    color:'#0078d4', fill:'rgba(0,120,212,0.13)',    scores:[84,78,82,88,86,86,88,55], version:'Microsoft 365 Copilot Wave 3 · GPT-5.3 + Claude',      period:'Microsoft · Agent 365 GA 1 May · Cowork · E7 · Fortune 500 90%' },
+  { name:'Nova 2',     color:'#ff9900', fill:'rgba(255,153,0,0.13)',    scores:[88,75,80,87,90,93,90,52], version:'Amazon Nova 2 Pro · 1M ctx · $1.25/M · Bedrock',       period:'Amazon AWS · τ²-Bench 93% · Nova Act · IFBench #1' },
+  // 17 MiMo NEW
+  { name:'MiMo',       color:'#f43f5e', fill:'rgba(244,63,94,0.13)',    scores:[88,76,52,94,85,80,90,88], version:'MiMo-V2-Pro · 1T params · "Hunter Alpha" · Xiaomi AI 🆕',   period:'Xiaomi · ex-DeepSeek (Luo Fuli) · 1T tokens testing · +5.8% HKG · OpenRouter #1 · API gratis OpenClaw' },
+  // 18 Composer 2 NEW
+  { name:'Composer 2', color:'#7c3aed', fill:'rgba(124,58,237,0.13)',   scores:[60,55,72,96,80,48,88,38], version:'Composer 2 (Fast default) · fine-tune Kimi K2.5 · $0.50-1.50/M 🆕', period:'Cursor/Anysphere ($29.3B) · 19 Mar 2026 · Terminal-Bench 61.7 · SWE-ML 73.7 · 200K ctx · JetBrains ACP' }
 ];
 
 const CATS = ['Razonamiento','Creatividad','Ética','Código','Ctx largo','Multimodal','Velocidad','Acceso libre'];
@@ -352,9 +486,7 @@ const cx = canvas.getContext('2d');
 
 function sz(){ return Math.min(Math.max(canvas.parentElement.clientWidth - 28, 200), 570); }
 function resize(){ const s = sz(); canvas.width = s; canvas.height = s; draw(); }
-const CX = () => canvas.width / 2;
-const CY = () => canvas.height / 2;
-const R  = () => canvas.width * 0.355;
+const CX = () => canvas.width / 2, CY = () => canvas.height / 2, R = () => canvas.width * 0.355;
 const ang = i => (Math.PI * 2 * i / N) - Math.PI / 2;
 const pt  = (i, v, r) => ({ x: CX() + Math.cos(ang(i)) * (v/100) * r, y: CY() + Math.sin(ang(i)) * (v/100) * r });
 
@@ -362,10 +494,7 @@ function drawGrid() {
   for (let ring = 1; ring <= 5; ring++) {
     const rr = ring / 5 * R();
     cx.beginPath();
-    for (let i = 0; i < N; i++) {
-      const a = ang(i), x = CX() + Math.cos(a)*rr, y = CY() + Math.sin(a)*rr;
-      i === 0 ? cx.moveTo(x, y) : cx.lineTo(x, y);
-    }
+    for (let i = 0; i < N; i++) { const a = ang(i); i === 0 ? cx.moveTo(CX()+Math.cos(a)*rr, CY()+Math.sin(a)*rr) : cx.lineTo(CX()+Math.cos(a)*rr, CY()+Math.sin(a)*rr); }
     cx.closePath();
     cx.strokeStyle = ring === 5 ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)';
     cx.lineWidth = 1; cx.stroke();
@@ -377,20 +506,15 @@ function drawGrid() {
     }
   }
   cx.strokeStyle = 'rgba(255,255,255,0.07)';
-  for (let i = 0; i < N; i++) {
-    const p = pt(i, 100, R());
-    cx.beginPath(); cx.moveTo(CX(), CY()); cx.lineTo(p.x, p.y); cx.stroke();
-  }
+  for (let i = 0; i < N; i++) { const p = pt(i,100,R()); cx.beginPath(); cx.moveTo(CX(),CY()); cx.lineTo(p.x,p.y); cx.stroke(); }
 }
 
 function drawLabels() {
-  const fs = Math.max(8, canvas.width * 0.022);
-  cx.font = `700 ${fs}px Syne, sans-serif`;
+  cx.font = `700 ${Math.max(8, canvas.width * 0.022)}px Syne, sans-serif`;
   cx.textAlign = 'center'; cx.textBaseline = 'middle';
   for (let i = 0; i < N; i++) {
     const a = ang(i), d = R() + R() * 0.15;
-    const isBest = IAs[active].scores[i] === Math.max(...IAs[active].scores);
-    cx.fillStyle = isBest ? IAs[active].color : 'rgba(232,232,240,0.36)';
+    cx.fillStyle = IAs[active].scores[i] === Math.max(...IAs[active].scores) ? IAs[active].color : 'rgba(232,232,240,0.36)';
     cx.fillText(CATS[i], CX() + Math.cos(a)*d, CY() + Math.sin(a)*d);
   }
 }
@@ -398,12 +522,8 @@ function drawLabels() {
 function drawIA(ia, alpha) {
   cx.globalAlpha = alpha;
   cx.beginPath();
-  for (let i = 0; i < N; i++) {
-    const p = pt(i, ia.scores[i], R());
-    i === 0 ? cx.moveTo(p.x, p.y) : cx.lineTo(p.x, p.y);
-  }
-  cx.closePath();
-  cx.fillStyle = ia.fill; cx.fill();
+  for (let i = 0; i < N; i++) { const p = pt(i, ia.scores[i], R()); i === 0 ? cx.moveTo(p.x,p.y) : cx.lineTo(p.x,p.y); }
+  cx.closePath(); cx.fillStyle = ia.fill; cx.fill();
   cx.strokeStyle = ia.color; cx.lineWidth = alpha === 1 ? 2.5 : 1; cx.stroke();
   const dr = Math.max(2.5, canvas.width * 0.007);
   for (let i = 0; i < N; i++) {
@@ -431,11 +551,8 @@ function renderScores() {
     `<span style="color:var(--dim);font-family:'Space Mono',monospace;font-size:.6rem">${ia.period}</span>`;
   const c = document.getElementById('scoreRows'); c.innerHTML = '';
   CATS.forEach((cat, i) => {
-    const v = ia.scores[i];
-    const d = document.createElement('div'); d.className = 'score-row';
-    d.innerHTML =
-      `<div class="score-meta"><span>${cat}</span><span class="score-val" style="color:${ia.color}">${v}</span></div>` +
-      `<div class="bar-bg"><div class="bar-fill" style="background:${ia.color}" data-t="${v}"></div></div>`;
+    const v = ia.scores[i], d = document.createElement('div'); d.className = 'score-row';
+    d.innerHTML = `<div class="score-meta"><span>${cat}</span><span class="score-val" style="color:${ia.color}">${v}</span></div><div class="bar-bg"><div class="bar-fill" style="background:${ia.color}" data-t="${v}"></div></div>`;
     c.appendChild(d);
   });
   setTimeout(() => document.querySelectorAll('.bar-fill').forEach(el => el.style.width = el.dataset.t + '%'), 40);
@@ -449,14 +566,13 @@ function sel(i) {
 
 canvas.addEventListener('click', e => {
   const rect = canvas.getBoundingClientRect();
-  const mx = (e.clientX - rect.left) * canvas.width / rect.width;
-  const my = (e.clientY - rect.top) * canvas.height / rect.height;
+  const mx = (e.clientX-rect.left)*canvas.width/rect.width, my = (e.clientY-rect.top)*canvas.height/rect.height;
   let best = -1, bestDist = Infinity;
   IAs.forEach((ia, idx) => {
     let ox = 0, oy = 0;
-    ia.scores.forEach((v, i) => { const p = pt(i, v, R()); ox += p.x; oy += p.y; });
+    ia.scores.forEach((v,i) => { const p = pt(i,v,R()); ox += p.x; oy += p.y; });
     ox /= N; oy /= N;
-    const d = Math.hypot(mx - ox, my - oy);
+    const d = Math.hypot(mx-ox, my-oy);
     if (d < bestDist) { bestDist = d; best = idx; }
   });
   if (best >= 0) sel(best);
