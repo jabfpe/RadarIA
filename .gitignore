@@ -1,22 +1,21 @@
-```python
-# Compiled and binary files
+```gitignore
+# Compiled Python files
 *.pyc
 __pycache__/
 
-# Dependencies
-.venv/
+# Virtual environments
 venv/
-node_modules/
-
-# Logs and temp files
-*.log
-*.tmp
-*.swp
-
-# Environment
+.venv/
 .env
 .env.local
 *.env.*
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
 
 # Editors
 .vscode/
@@ -27,17 +26,18 @@ node_modules/
 coverage/
 htmlcov/
 
-# Build artifacts
+# Distribution artifacts
 dist/
 build/
 target/
-*.out
 
-# OS generated files
+# Dependencies cache
+node_modules/
+.mypy_cache/
+.pytest_cache/
+.gradle/
+
+# System files
 .DS_Store
 Thumbs.db
-
-# Testing
-.pytest_cache/
-.mypy_cache/
 ```
